@@ -1,0 +1,22 @@
+AUTOMATIZACIÓN: Rotador de Wallpapers
+Número: 26
+Frecuencia: Cada X horas (configurable, ej. cada 2 horas)
+
+IDEA:
+Cambia el fondo de pantalla automáticamente con imágenes
+de una carpeta tuya. Sin hacer nada, el escritorio siempre se ve diferente.
+
+QUÉ HACE:
+- Lee una carpeta ~/Wallpapers con tus imágenes
+- Cada X horas cambia al siguiente wallpaper (aleatorio u ordenado)
+- Compatible con Hyprland (usa hyprctl o swww)
+- Opción de cambiar manualmente con un atajo de teclado
+
+TIPO: Duerme y se despierta — solo activo unos segundos cada X horas
+
+HERRAMIENTAS A USAR:
+- swww (gestor de wallpapers para Wayland/Hyprland)
+- bash o Python
+- cron o systemd timer
+
+ESTADO: Idea pendiente de implementar en Linux

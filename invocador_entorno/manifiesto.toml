@@ -1,0 +1,111 @@
+# Manifiesto del Invocador de Entorno
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# El comando 'modo' parsea argv asi (ver invocador_entorno.py main()):
+#   - args[0] in {lista, parar, nuevo, editar, ayuda/-h/--help} -> subcomando fijo
+#   - cualquier otro args[0] -> se interpreta como NOMBRE de modo y lo lanza
+# Por eso NO se usa el modelo git-subcomando: el primer posicional es un nombre
+# libre (operacion 'activar' con argumento nombre_modo) y las acciones fijas
+# (lista, parar, nuevo, editar) se modelan como operaciones que llevan ese
+# token fijo como primer posicional via su propio argumento o flags=[].
+#
+# Operaciones interactivas (nuevo, editar) abren $EDITOR: bloquea_terminal=true,
+# salida_esperada=interactivo. Quedan fuera del flujo automatico del LLM.
+
+[meta]
+clave = "invocador_entorno"
+nombre_visible = "Invocador de Entorno"
+descripcion_corta = "Lanza modos de trabajo que abren de golpe todas las apps de un perfil definido en TOML"
+categoria = "productividad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "modo"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "activar"
+descripcion = "Activa un modo por su nombre: lanza todas las apps del perfil y las distribuye en sus workspaces de Hyprland."
+flags = []
+argumentos_aceptados = ["nombre_modo"]
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "listar"
+descripcion = "Lista los modos disponibles con su nombre y descripcion."
+flags = ["lista"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "parar"
+descripcion = "Cierra (SIGTERM) las apps del modo activo actual segun el estado guardado en /tmp."
+flags = ["parar"]
+argumentos_aceptados = []
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "nuevo"
+descripcion = "Crea un modo nuevo copiando la plantilla y abre el TOML para editarlo. Interactivo."
+flags = ["nuevo"]
+argumentos_aceptados = ["nombre_modo"]
+requiere_confirmacion = true
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "editar"
+descripcion = "Abre el TOML de un modo existente en el editor del usuario. Interactivo."
+flags = ["editar"]
+argumentos_aceptados = ["nombre_modo"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 60
+paths_protegidos = []
+
+[[argumentos]]
+clave = "nombre_modo"
+descripcion = "Nombre del modo de trabajo (sin extension .toml), p.ej. dev, musica, trabajo."
+tipo = "cadena"
+obligatorio = true
+regex = "^[a-z][a-z0-9_]*$"
+forma_paso = "posicional"
+
+[dependencias]
+binarios = ["python3", "hyprctl", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/invocador_entorno/config.toml",
+    "/home/sun/Escritorio/automatizaciones/invocador_entorno/modos",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere arrancar o cerrar un entorno de trabajo completo (varias apps a la vez) o saber que modos tiene configurados."
+cuando_no_usar = "Cuando solo quiere abrir una unica aplicacion suelta, o cambiar de workspace sin lanzar apps."
+ejemplos_peticion = [
+    "activa el modo dev",
+    "ponme en modo trabajo",
+    "que modos tengo",
+    "modo musica",
+    "cierra el modo activo",
+]
+palabras_clave = ["modo", "modos", "entorno", "workspace", "perfil", "apps", "dev", "musica", "trabajo"]

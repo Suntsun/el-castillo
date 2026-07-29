@@ -1,0 +1,10 @@
+[Unit]
+Description=Escaneo semanal de amenazas (Guardian de las Sombras)
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=3600
+
+[Install]
+WantedBy=timers.target

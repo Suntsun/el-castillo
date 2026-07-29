@@ -1,0 +1,22 @@
+[general]
+nombre = "guardian_sombras"
+descripcion = "Defensor del sistema — secretos, historial git y amenazas"
+
+[patrones]
+aws_keys = true
+tokens_genericos = true
+claves_privadas = true
+jwt = true
+credenciales_url = true
+archivos_env = true
+github_tokens = true
+slack_tokens = true
+discord_webhooks = true
+stripe_keys = true
+db_connection_strings = true
+google_api_keys = true
+telegram_tokens = true
+
+[notificacion]
+duracion = 5000
+severidad = "error"

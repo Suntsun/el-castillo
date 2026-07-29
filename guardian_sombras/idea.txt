@@ -1,0 +1,50 @@
+AUTOMATIZACIÓN: Detector de Secretos
+Número: 69
+Frecuencia: En cada git commit (pre-commit hook) + bajo demanda
+
+IDEA:
+Escanea los archivos que estás a punto de subir a git y bloquea el
+commit si detecta credenciales, tokens, claves API o contraseñas.
+El cortafuegos entre tu descuido y un leak público.
+
+QUÉ HACE:
+- Se instala como git hook pre-commit en tus repos
+- Antes de cada commit escanea los archivos staged
+- Detecta patrones de secretos: AWS keys, tokens JWT, passwords, IPs
+- Si encuentra algo sospechoso: bloquea el commit y muestra qué encontró
+- Modo --scan para analizar el repo completo retroactivamente
+
+PATRONES QUE DETECTA:
+  AWS_ACCESS_KEY_ID         → AKIA[0-9A-Z]{16}
+  Token genérico            → (token|secret|password|passwd)\s*=\s*\S+
+  Clave privada             → -----BEGIN.*PRIVATE KEY-----
+  JWT                       → eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.
+  Credenciales en URLs      → https://usuario:contraseña@host
+  Variables .env expuestas  → archivos .env incluidos en el commit
+
+EJEMPLO DE USO:
+  detectar-secretos              → escanea archivos staged
+  detectar-secretos --repo       → escanea todo el historial del repo
+  detectar-secretos --instalar   → instala el hook en el repo actual
+  detectar-secretos --global     → instala el hook en todos los repos
+
+EJEMPLO DE SALIDA:
+  ⛔ COMMIT BLOQUEADO — Secreto detectado
+  Archivo:  config/database.py  (línea 12)
+  Patrón:   password = "mi_contraseña_real"
+  Acción:   Usa variables de entorno o un gestor de secretos
+
+TIPO: Duerme y se despierta — se activa solo al hacer git commit
+
+HERRAMIENTAS A USAR:
+- git hooks (pre-commit)
+- detect-secrets (librería Python) o truffleHog como base
+- Python o bash para reglas personalizadas
+- Integración con Sincronizador para gestionar secretos de forma segura
+
+MATICES A DECIDIR:
+- ¿Whitelist para falsos positivos en tests o ejemplos de docs?
+- ¿Notificación silenciosa o bloqueo duro del commit?
+- ¿Integración con pre-commit framework para gestión centralizada?
+
+ESTADO: Idea pendiente de implementar en Linux

@@ -1,0 +1,30 @@
+AUTOMATIZACIÓN: Lanzador de Modo Trabajo
+Número: 28
+Frecuencia: Bajo demanda (cuando el usuario lo activa)
+
+IDEA:
+Un comando que abre de golpe todo lo que necesitas para un proyecto concreto.
+En vez de abrir programa por programa, escribes un comando y todo aparece.
+
+EJEMPLOS DE MODOS:
+- "trabajo" → abre terminal, navegador con tus webs habituales, neovim
+- "musica" → abre reproductor y carpeta de música
+- "estudio" → abre notas, temporizador Pomodoro, modo no molestar
+
+QUÉ HACE:
+- Cada "modo" es un perfil configurable en un archivo
+- Abre las apps que le indiques en las posiciones que quieras
+- Puede cerrar las apps del modo anterior automáticamente
+- Activable desde terminal, atajo de teclado, o Bot de Telegram
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- bash o Python para orquestar el lanzamiento
+- Hyprland para posicionar ventanas
+- Archivo de configuración simple por modo
+
+MATICES A DECIDIR:
+- ¿Qué modos quieres? ¿Qué abre cada uno?
+
+ESTADO: Idea pendiente de implementar en Linux

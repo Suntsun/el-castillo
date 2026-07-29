@@ -1,0 +1,39 @@
+# === Assets pesados (no son código) ===
+# 1,81 GB de fondos de pantalla de terceros — fuera por peso y por licencia
+tejedor_entorno/wallpapers-tejedor-entorno/
+
+# 75 MB de retratos generados por IA. Se conserva la guía de estilo (*.md)
+# y un único retrato como cabecera del README.
+images/*.png
+!images/el_arquitecto_del_castillo.png
+
+# === Estado de ejecución (no es código) ===
+logs/
+**/state/trazas.jsonl
+**/*.log
+**/*.log.bak
+
+# === Artefactos de Python ===
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+.venv/
+venv/
+
+# === Residuos de pruebas ===
+dir con espacios test/
+
+# === Secretos: nunca, bajo ninguna circunstancia ===
+*.env
+.env*
+*.pem
+*.key
+*.p12
+*.gpg
+*.cred
+*credentials*
+*secrets*
+
+# === Sistema ===
+.DS_Store
+*.swp

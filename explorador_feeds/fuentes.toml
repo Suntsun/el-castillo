@@ -1,0 +1,14 @@
+[[fuente]]
+nombre = "Arch Linux News"
+url = "https://archlinux.org/feeds/news/"
+categoria = "linux"
+
+[[fuente]]
+nombre = "Hacker News"
+url = "https://hnrss.org/frontpage"
+categoria = "tech"
+
+[[fuente]]
+nombre = "El blog de Python"
+url = "https://planetpython.org/rss20.xml"
+categoria = "programacion"

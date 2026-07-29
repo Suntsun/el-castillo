@@ -1,0 +1,47 @@
+AUTOMATIZACIÓN: Guardián del Reposo
+Consejero: El Guardián del Reposo (Mayordomo del Sistema)
+Frecuencia: Bajo demanda
+Estado: Implementado
+
+PROPÓSITO:
+Programa apagado, reinicio o suspensión del PC con cuenta atrás.
+Avisa 5 minutos antes. Se puede cancelar en cualquier momento.
+
+COMANDO RÁPIDO: rast (en ~/.local/bin/)
+
+  rast 30m              → apaga en 30 minutos
+  rast 2h               → apaga en 2 horas
+  rast 1h30m            → apaga en 1 hora y media
+  rast restart 1h       → reinicia en 1 hora
+  rast suspend 45m      → suspende en 45 minutos
+  rast cancel           → cancela lo programado
+  rast status           → muestra qué hay programado
+  rast                  → abre menú visual (walker) en español
+
+MENÚ VISUAL:
+Sin argumentos abre walker con opciones predefinidas:
+  - Apagar en 30 min / 1 hora / 2 horas
+  - Reiniciar en 30 min / 1 hora
+  - Suspender en 30 min
+  - Cancelar programado
+Las opciones del menú son configurables en config.toml.
+
+COMPORTAMIENTO:
+- Acción por defecto: apagar (solo escribes rast + tiempo)
+- Aviso 5 minutos antes (notificación que no desaparece)
+- Si ya hay algo programado, no permite duplicar (pide cancelar primero)
+- Si el proceso muere o se cancela, limpia su estado automáticamente
+- Usa systemctl (poweroff/reboot/suspend) — no necesita sudo en sesión Hyprland
+
+CONFIGURACIÓN (config.toml):
+- Tiempo de aviso previo (default 5 minutos)
+- Opciones del menú visual personalizables
+
+REQUISITOS:
+- walker (ya instalado en Omarchy)
+- systemctl (ya instalado)
+
+DEPENDENCIAS:
+- comun/ (módulo compartido de automatizaciones)
+
+INTEGRACIÓN FUTURA: heraldo_mensajes (control por Telegram)

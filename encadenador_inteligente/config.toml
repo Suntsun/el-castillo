@@ -1,0 +1,24 @@
+[general]
+nombre = "encadenador_inteligente"
+descripcion = "Encadenador de automatizaciones: ejecuta cadenas de pasos cuando detecta que una automatizacion termino"
+
+[escaneo]
+# Intervalo entre escaneos en segundos
+intervalo = 30
+# Fichero donde se guardan las posiciones leidas (byte offsets)
+fichero_posiciones = "/tmp/encadenador_inteligente_posiciones.json"
+
+[ejecucion]
+# Maximo de cadenas ejecutandose simultaneamente
+max_concurrentes = 3
+# Cooldown en segundos antes de re-disparar la misma cadena
+cooldown = 300
+
+[historial]
+# Fichero donde se guardan las ejecuciones pasadas
+ruta = "/home/sun/Escritorio/automatizaciones/logs/encadenador_historial.json"
+# Maximo de entradas en el historial
+max_entradas = 200
+
+[notificacion]
+duracion = 6000

@@ -1,0 +1,24 @@
+[general]
+nombre = "cronista_errores"
+descripcion = "Vigilante de logs: detecta errores en todas las automatizaciones y los centraliza"
+
+[escaneo]
+# Intervalo entre escaneos en segundos
+intervalo = 30
+# Severidades a capturar de los logs
+severidades = ["ERROR", "CRITICAL"]
+# Fichero donde se guardan las posiciones leídas (byte offsets)
+fichero_posiciones = "/tmp/cronista_errores_posiciones.json"
+
+[log_global]
+# Ruta del log centralizado de errores (separado del log propio del cronista)
+ruta = "/home/sun/Escritorio/automatizaciones/logs/errores_global.log"
+# Máximo de bytes del log global antes de archivar (10 MB)
+max_bytes = 10485760
+
+[notificacion]
+duracion = 8000
+# Máximo de notificaciones por ciclo de escaneo (para no saturar)
+max_por_ciclo = 3
+# Segundos de cooldown antes de repetir notificación del mismo error
+cooldown_duplicados = 300

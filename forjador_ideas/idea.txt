@@ -1,0 +1,35 @@
+AUTOMATIZACIÓN: Generador de Ideas Automatizables
+Número: 58
+Frecuencia: Cada mañana al encender el PC
+
+IDEA:
+Cada mañana la IA analiza tu sistema, tus automatizaciones actuales
+y te sugiere UNA idea concreta de algo nuevo que podrías automatizar.
+No ideas genéricas — ideas específicas para TU setup.
+
+QUÉ HACE:
+- Analiza qué automatizaciones ya tienes instaladas
+- Detecta tareas repetitivas en tu historial de terminal
+- Detecta patrones: "llevas 5 días haciendo esto manualmente"
+- La IA genera una sugerencia concreta y realista
+- Muestra popup matutino: "Idea del día: podrías automatizar X porque..."
+- Guarda un historial de ideas sugeridas en ~/automatizaciones/ideas_log.txt
+
+EJEMPLOS DE IDEAS QUE PODRÍA SUGERIR:
+- "Llevas 3 días descargando vídeos manualmente — ¿activo el Descargador YouTube?"
+- "Tu carpeta Downloads tiene 40 archivos sin organizar — ¿creo un Organizador?"
+- "El Lector RSS no está conectado al Agente IA — podrían funcionar juntos"
+
+INTEGRACIÓN:
+- Usa el historial del Orquestador_Central para detectar patrones
+- Alimenta al Encadenador_Inteligente con nuevas combinaciones posibles
+- Usa Ollama para generar las sugerencias localmente
+
+TIPO: Duerme y se despierta — activo unos segundos cada mañana
+
+HERRAMIENTAS A USAR:
+- Ollama (IA local para generar ideas)
+- Python para analizar historial y patrones
+- notify-send (popup matutino)
+
+ESTADO: Idea pendiente de implementar en Linux

@@ -1,0 +1,45 @@
+AUTOMATIZACIÓN: Agente de Mercado
+Número: 61
+Frecuencia: Configurable (cada hora, cada día, en tiempo real)
+
+IDEA:
+Un agente mecánico y eficiente que vigila precios de activos
+(crypto, acciones, materias primas) y actúa automáticamente
+según reglas que tú defines. Sin IA que interprete — pura lógica de reglas.
+
+DIFERENCIA CON EL "AGENTE ANALISTA DE MERCADO":
+- Ese agente: analiza, interpreta, da opiniones con IA
+- Este agente: ejecuta reglas fijas de forma mecánica y fiable
+  "Si BTC baja de 80.000$ → manda alerta"  (siempre, sin interpretación)
+
+QUÉ HACE:
+- Monitoriza precios en tiempo real o por intervalos
+- Ejecuta alertas según umbrales que tú fijas:
+  → Precio sube X% → popup + Telegram
+  → Precio baja de Y → popup urgente + Telegram
+  → Precio cruza media móvil → alerta
+- Guarda historial de precios en local
+- Genera gráfico simple en terminal si lo pides
+- NO toma decisiones — solo informa y alerta
+
+ACTIVOS QUE PUEDE VIGILAR:
+- Criptomonedas (BTC, ETH, SOL...)
+- Acciones (si tienen API gratuita)
+- Divisas (EUR/USD, etc.)
+- Cualquier dato con API pública
+
+TIPO: Siempre activo en modo polling — consume muy poco
+
+HERRAMIENTAS A USAR:
+- Python + requests (llamadas a APIs de mercado)
+- CoinGecko API / Yahoo Finance (gratuitas)
+- notify-send (alertas de escritorio)
+- Bot_Telegram (alertas al móvil)
+- matplotlib o termgraph (gráficos simples)
+
+MATICES A DECIDIR:
+- ¿Qué activos vigilar?
+- ¿Qué umbrales de alerta?
+- ¿Cada cuánto consulta precios?
+
+ESTADO: Idea pendiente de implementar en Linux

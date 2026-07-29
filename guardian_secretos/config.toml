@@ -1,0 +1,12 @@
+[general]
+nombre = "guardian_secretos"
+descripcion = "Cifrador de archivos sensibles con GPG"
+
+[boveda]
+ruta = "~/.config/automatizaciones/boveda"
+cipher_algo = "AES256"
+editor = "nvim"
+
+[notificacion]
+duracion = 3000
+severidad = "info"

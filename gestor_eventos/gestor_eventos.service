@@ -1,0 +1,15 @@
+[Unit]
+Description=Gestor de Eventos — Bus de eventos del sistema
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/gestor_eventos/gestor_eventos.py
+Restart=on-failure
+RestartSec=10
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=default.target

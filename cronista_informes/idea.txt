@@ -1,0 +1,31 @@
+AUTOMATIZACIÓN: Generador de Informes
+Número: 22
+Frecuencia: 1 vez por semana (ej. domingo por la noche)
+
+IDEA:
+Cada semana genera un resumen de todo lo que han hecho
+las automatizaciones y lo muestra como notificación emergente (popup)
+en el escritorio. Como un "informe semanal automático".
+
+QUÉ INCLUYE EL INFORME:
+- Qué limpió el Limpiador y cuánto espacio liberó
+- Qué paquetes se actualizaron
+- Si el backup se hizo correctamente
+- Estado del disco (% usado)
+- Resumen de alertas de la semana
+- Cualquier error que haya ocurrido en otras automatizaciones
+
+CÓMO SE MUESTRA:
+- Notificación emergente (popup) en el escritorio con resumen corto
+- Opcionalmente también guardado en un txt por si quieres releerlo
+
+HERRAMIENTAS A USAR:
+- Python o bash para recopilar los logs de todas las automatizaciones
+- notify-send o dunst para el popup de escritorio
+- cron o systemd timer para la ejecución semanal
+
+MATICES A DECIDIR:
+- ¿Qué información es más útil incluir?
+- ¿Solo popup o también guardar historial en txt?
+
+ESTADO: Idea pendiente de implementar en Linux

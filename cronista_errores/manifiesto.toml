@@ -1,0 +1,103 @@
+# Manifiesto del Cronista de Errores
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: mostrar, seguir, limpiar.
+# Se OMITE intencionadamente la operación 'daemon' del subcomando real,
+# porque es un bucle infinito que arranca via systemd y no debe invocarse
+# desde el Arquitecto.
+
+[meta]
+clave = "cronista_errores"
+nombre_visible = "Cronista de Errores"
+descripcion_corta = "Centraliza, muestra y archiva los errores de todas las automatizaciones del Castillo"
+categoria = "monitorizacion"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "errores"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "mostrar_24h"
+descripcion = "Muestra los errores registrados en las ultimas 24 horas, agrupados por automatizacion."
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "mostrar_semana"
+descripcion = "Muestra los errores de los ultimos 7 dias."
+flags = ["--semana"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "mostrar_historial"
+descripcion = "Muestra todo el historial de errores acumulado."
+flags = ["--todo"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "seguir_en_vivo"
+descripcion = "Sigue el log global en tiempo real (tail -f). Bloquea la terminal hasta Ctrl+C."
+flags = ["--seguir"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "limpiar_log_global"
+descripcion = "Archiva el log global actual con timestamp y empieza uno limpio."
+flags = ["--limpiar"]
+argumentos_aceptados = []
+requiere_confirmacion = true
+peligrosidad = "escritura_local"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 30
+paths_protegidos = [
+    "/home/sun/Escritorio/automatizaciones/logs/cronista_errores.log",
+]
+
+# No hay argumentos: todas las operaciones se distinguen por flags fijos.
+# Se declara la sección vacía para dejar explícito que es intencional.
+# (TOML permite omitir arrays de tablas vacíos; lo dejamos comentado.)
+# [[argumentos]]
+
+[dependencias]
+binarios = ["python3", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/cronista_errores/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario pregunta por errores, fallos, problemas, o quiere ver el estado de salud de las automatizaciones."
+cuando_no_usar = "Cuando el usuario pide ver logs en general (eso es otra cosa) o quiere diagnosticar un error concreto a fondo (eso es 'explicar')."
+ejemplos_peticion = [
+    "que errores hay",
+    "muestrame los fallos de esta semana",
+    "hay algo fallando",
+    "limpia el log de errores",
+    "sigue los errores en tiempo real",
+]
+palabras_clave = ["error", "errores", "fallo", "fallos", "problema", "problemas", "log"]

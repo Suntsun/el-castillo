@@ -1,0 +1,7 @@
+[general]
+nombre = "jefe_de_maquinas"
+descripcion = "Orquestador central del Castillo"
+
+[notificacion]
+duracion = 5000
+severidad = "info"

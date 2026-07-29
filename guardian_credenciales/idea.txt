@@ -1,0 +1,39 @@
+AUTOMATIZACIÓN: Gestor de APIs
+Número: 38
+Frecuencia: Siempre disponible + comprobación semanal automática
+
+IDEA:
+Tienes una carpeta con tus API keys y credenciales.
+Este gestor las organiza, las protege y comprueba automáticamente
+que siguen activas cada semana. Si una caduca o falla, te avisa.
+
+ESTRUCTURA DE LA CARPETA:
+~/apis/
+├── openai.txt
+├── telegram.txt
+├── google.txt
+├── github.txt
+└── ...
+
+QUÉ HACE:
+- Acceso rápido a cualquier API desde terminal: "api openai" → copia la key al portapapeles
+- Comprobación semanal automática: hace un ping a cada API y verifica que responde
+- Si una API falla o caduca → popup de alerta inmediata
+- Cifrado opcional de los archivos (para mayor seguridad)
+- Listado de todas tus APIs con estado: activa / sin comprobar / caducada
+- Integración con el Checklist de Arranque
+
+TIPO: Siempre disponible como comando + comprobación semanal programada
+
+HERRAMIENTAS A USAR:
+- bash o Python
+- gpg (cifrado opcional de archivos)
+- curl (comprobar que las APIs responden)
+- xclip o wl-copy (copiar al portapapeles)
+- notify-send (alertas)
+
+MATICES A DECIDIR:
+- ¿Qué APIs tienes? (para saber cuáles comprobar y cómo)
+- ¿Quieres cifrado en los archivos o solo permisos restringidos?
+
+ESTADO: Idea pendiente de implementar en Linux

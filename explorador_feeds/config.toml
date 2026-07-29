@@ -1,0 +1,17 @@
+[general]
+nombre = "explorador_feeds"
+descripcion = "Lector de RSS — descarga y resume articulos de blogs y noticias"
+
+[cache]
+# Ruta del fichero de cache de articulos
+ruta = "/tmp/explorador_feeds_cache.json"
+# Maximo de articulos por fuente en cache
+max_por_fuente = 20
+
+[llm]
+# Usar LLM local para resumir articulos (si esta disponible)
+resumir = true
+
+[notificacion]
+duracion = 5000
+severidad = "info"

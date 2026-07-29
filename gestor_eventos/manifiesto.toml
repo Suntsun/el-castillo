@@ -1,0 +1,101 @@
+# Manifiesto del Gestor de Eventos
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# El comando real usa flags de argparse (--status, --reglas, --historial,
+# --test REGLA), NO subcomandos estilo git. Por eso usa_subcomandos = false.
+#
+# Operaciones expuestas al Arquitecto: ver_estado, listar_reglas,
+# ver_historial, probar_regla (todas de LECTURA).
+# Se OMITE intencionadamente la invocacion sin flags, que arranca el bucle
+# del daemon en primer plano (bloquea_terminal). El daemon ya corre como
+# servicio systemd-user (gestor_eventos.service); el Arquitecto no debe
+# lanzarlo. Por eso NO se declara como operacion ni como dependencia para
+# las consultas de lectura.
+
+[meta]
+clave = "gestor_eventos"
+nombre_visible = "Gestor de Eventos"
+descripcion_corta = "Bus de eventos del sistema: muestra estado de sensores, reglas e historial de eventos disparados"
+categoria = "monitorizacion"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "eventos"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "ver_estado"
+descripcion = "Muestra el estado actual de todos los sensores: monitores, red, bateria, USB y carga del sistema."
+flags = ["--status"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "listar_reglas"
+descripcion = "Lista las reglas configuradas del bus de eventos (evento, condicion, accion y cooldown)."
+flags = ["--reglas"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "ver_historial"
+descripcion = "Muestra los ultimos 20 eventos disparados por el daemon con su resultado."
+flags = ["--historial"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "probar_regla"
+descripcion = "Simula una regla concreta: detecta el estado actual y evalua su condicion SIN ejecutar la accion real."
+flags = ["--test"]
+argumentos_aceptados = ["nombre_regla"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 15
+paths_protegidos = []
+
+[[argumentos]]
+clave = "nombre_regla"
+descripcion = "Nombre exacto de la regla a simular, segun aparece en el directorio reglas/ (ej.: monitor_conectado, red_caida)."
+tipo = "cadena"
+obligatorio = true
+regex = "^[a-z][a-z0-9_]*$"
+forma_paso = "flag_largo"
+flag_literal = "--test"
+
+[dependencias]
+binarios = ["python3", "hyprctl", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/gestor_eventos/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario pregunta por el estado del bus de eventos, que sensores hay, que eventos se han disparado, o que reglas estan activas."
+cuando_no_usar = "Cuando el usuario quiere arrancar, parar o reiniciar el daemon (eso es gestion del servicio systemd, no una consulta de lectura)."
+ejemplos_peticion = [
+    "estado del bus de eventos",
+    "que eventos ha habido",
+    "esta corriendo el gestor de eventos",
+    "que reglas de eventos hay configuradas",
+    "prueba la regla red_caida",
+]
+palabras_clave = ["evento", "eventos", "bus", "sensor", "sensores", "reglas", "historial", "monitor", "bateria"]

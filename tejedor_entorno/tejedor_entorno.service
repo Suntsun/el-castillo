@@ -1,0 +1,13 @@
+[Unit]
+Description=Rotador de wallpapers (Tejedor de Entorno)
+
+[Service]
+Type=oneshot
+# process (no 'none', deprecado): al ser oneshot, el proceso principal (python)
+# ya ha terminado cuando systemd para la unidad, asi que swaybg -lanzado en su
+# propia sesion- sobrevive y el fondo se mantiene.
+KillMode=process
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/tejedor_entorno/tejedor_entorno.py
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000

@@ -1,0 +1,11 @@
+[modo]
+nombre = "musica"
+descripcion = "Sesion de musica — lofi stream y carpeta de musica"
+
+[[apps]]
+comando = "xdg-open https://www.youtube.com/live/YmQ7jRgf4f0"
+delay = 2
+
+[[apps]]
+comando = "xdg-open ~/Music"
+delay = 0

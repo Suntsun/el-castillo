@@ -1,0 +1,10 @@
+[general]
+nombre = "monitor_red"
+descripcion = "Monitorización continua de conexión a internet"
+intervalo_normal = 30
+intervalo_caida = 10
+
+[ping]
+hosts = ["1.1.1.1", "8.8.8.8"]
+timeout = 5
+# Se declara caída solo si TODOS los hosts fallan

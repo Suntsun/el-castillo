@@ -1,0 +1,36 @@
+AUTOMATIZACIÓN: Buscador Universal
+Número: 50
+Frecuencia: Bajo demanda (comando en terminal)
+
+IDEA:
+Un comando que busca en todos tus sitios a la vez.
+En vez de buscar en un sitio, luego en otro, luego en otro...
+escribes una palabra y aparece todo de golpe.
+
+QUÉ BUSCA SIMULTÁNEAMENTE:
+- Tus archivos y carpetas (por nombre y por contenido)
+- Tus notas y txt
+- Historial de comandos del terminal
+- Portapapeles reciente (si tienes Historial de Clipboard activo)
+- Tus APIs y contraseñas (por nombre, no muestra el valor)
+- Logs de automatizaciones
+
+EJEMPLOS DE USO:
+  buscar "openai"    → encuentra openai.txt en /apis, menciones en notas, comandos usados
+  buscar "error"     → encuentra errores en logs de todas las automatizaciones
+  buscar "reunion"   → encuentra archivos, notas y clipboard con esa palabra
+
+CÓMO LO MUESTRA:
+- Resultados agrupados por categoría en terminal
+- Coloreado para distinguir tipos de resultado
+- Opción de abrir directamente el archivo encontrado
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- fzf (búsqueda interactiva en terminal)
+- ripgrep (búsqueda en contenido de archivos, muy rápido)
+- fd (búsqueda de archivos)
+- bash para orquestar todo
+
+ESTADO: Idea pendiente de implementar en Linux

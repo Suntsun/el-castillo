@@ -1,0 +1,6 @@
+[regla]
+nombre = "monitor_conectado"
+evento = "monitor"
+condicion = "count > 1"
+accion = "hyprctl dispatch moveworkspacetomonitor 1 1"
+cooldown = 30

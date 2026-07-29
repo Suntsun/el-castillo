@@ -1,0 +1,14 @@
+[general]
+nombre = "cazador_medios"
+descripcion = "Descarga audio MP3 de YouTube y SoundCloud"
+
+[rutas]
+# Carpetas destino para audio MP3
+youtube = "~/Música/YouTube"
+soundcloud = "~/Música/SoundCloud"
+
+[notificacion]
+# Duración de la notificación en ms
+duracion = 5000
+# Severidad por defecto: info, exito, aviso, error
+severidad = "exito"

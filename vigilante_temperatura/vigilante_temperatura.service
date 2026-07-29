@@ -1,0 +1,15 @@
+[Unit]
+Description=Vigilante de temperatura del sistema
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
+Restart=on-failure
+RestartSec=10
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=default.target

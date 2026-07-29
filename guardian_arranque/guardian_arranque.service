@@ -1,0 +1,9 @@
+[Unit]
+Description=Checklist de arranque del sistema (Guardian del Arranque)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/guardian_arranque/guardian_arranque.py --solo-notificacion
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000

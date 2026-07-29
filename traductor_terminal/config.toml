@@ -1,0 +1,21 @@
+[general]
+nombre = "traductor_terminal"
+descripcion = "Traduce texto al instante desde la terminal"
+
+[traduccion]
+# Idioma destino por defecto (código ISO 639-1)
+idioma_destino = "es"
+# Motor de traducción (google, bing, yandex)
+motor = "google"
+# Timeout en segundos para la llamada a trans
+timeout = 10
+
+[notificacion]
+# Duración mínima de la notificación en ms (se alarga con textos largos)
+duracion = 6000
+# Severidad por defecto: info, exito, aviso, error
+severidad = "exito"
+
+[portapapeles]
+# Copiar resultado al portapapeles automáticamente (sin necesidad de --copy)
+auto_copiar = false

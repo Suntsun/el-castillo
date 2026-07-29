@@ -1,0 +1,21 @@
+[general]
+nombre = "explorador_archivos"
+descripcion = "Buscador universal: archivos, contenido, historial y logs en un solo comando"
+
+[busqueda]
+# Máximo de resultados por categoría (0 = sin límite)
+limite_por_categoria = 10
+# Directorios a excluir en búsquedas de contenido
+excluir = [".cache", "node_modules", ".git", "__pycache__", ".venv", "venv", ".local/share/Trash"]
+# Directorio base de búsqueda para archivos y contenido
+directorio_base = "~"
+# Directorio de logs de automatizaciones
+directorio_logs = "/home/sun/Escritorio/automatizaciones/logs"
+# Fichero de historial de terminal
+historial = "~/.bash_history"
+# Timeout en segundos para cada búsqueda individual
+timeout = 15
+
+[notificacion]
+duracion = 4000
+severidad = "info"

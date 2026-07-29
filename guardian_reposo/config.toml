@@ -1,0 +1,15 @@
+[general]
+nombre = "guardian_reposo"
+descripcion = "Apagado, reinicio y suspensión programados"
+aviso_previo_minutos = 5
+
+[menu]
+opciones = [
+    "Apagar en 30 minutos",
+    "Apagar en 1 hora",
+    "Apagar en 2 horas",
+    "Reiniciar en 30 minutos",
+    "Reiniciar en 1 hora",
+    "Suspender en 30 minutos",
+    "Cancelar programado",
+]

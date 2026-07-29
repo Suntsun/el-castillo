@@ -1,0 +1,118 @@
+# Manifiesto del Explorador de Feeds
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: listar_titulares, leer_articulo, listar_fuentes,
+# actualizar, anadir_fuente.
+# Se OMITE intencionadamente la operacion --borrar de fuentes: aunque su
+# riesgo es bajo, modifica la config de fuentes y no aporta valor exponerla
+# al flujo automatico del cerebro. El usuario puede borrar fuentes a mano.
+
+[meta]
+clave = "explorador_feeds"
+nombre_visible = "Explorador de Feeds"
+descripcion_corta = "Lee RSS, lista titulares y articulos, y descarga noticias nuevas con resumenes LLM opcionales"
+categoria = "red"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "feeds"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "listar_titulares"
+descripcion = "Lista los titulares de los articulos ya descargados en la cache, con fuente y antiguedad."
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "leer_articulo"
+descripcion = "Muestra el contenido completo del articulo numero N de la lista de titulares."
+flags = []
+argumentos_aceptados = ["numero"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "listar_fuentes"
+descripcion = "Lista las fuentes RSS configuradas con su nombre, categoria y URL."
+flags = ["--fuentes"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "actualizar"
+descripcion = "Descarga articulos nuevos de todas las fuentes via internet y los guarda en la cache, resumiendolos con LLM si esta disponible."
+flags = ["--actualizar"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "anadir_fuente"
+descripcion = "Anade una nueva fuente RSS a la configuracion a partir de su URL."
+flags = []
+argumentos_aceptados = ["url"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = true
+requiere_sudo = false
+tiempo_max_segundos = 120
+paths_protegidos = [
+    "/home/sun/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
+]
+
+[[argumentos]]
+clave = "numero"
+descripcion = "Numero del articulo a leer, segun el indice mostrado en la lista de titulares (1-based)."
+tipo = "entero"
+obligatorio = true
+min = 1
+max = 999
+forma_paso = "flag_largo"
+flag_literal = "--leer"
+
+[[argumentos]]
+clave = "url"
+descripcion = "URL del feed RSS o Atom de la nueva fuente a anadir."
+tipo = "url"
+obligatorio = true
+forma_paso = "flag_largo"
+flag_literal = "--anadir"
+
+[dependencias]
+binarios = ["python3", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/explorador_feeds/config.toml",
+    "/home/sun/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
+]
+servicios_systemd = ["explorador_feeds.timer"]
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere ver noticias o titulares de blogs, leer un articulo concreto, gestionar sus fuentes RSS o descargar articulos nuevos."
+cuando_no_usar = "Cuando el usuario pide buscar en internet algo concreto o abrir una pagina web; esto solo lee feeds RSS ya configurados."
+ejemplos_peticion = [
+    "que noticias hay",
+    "lee el articulo 3",
+    "actualiza los feeds",
+    "anade esta fuente rss",
+    "que fuentes tengo configuradas",
+]
+palabras_clave = ["feeds", "rss", "noticias", "titulares", "articulo", "fuente", "blog", "atom"]

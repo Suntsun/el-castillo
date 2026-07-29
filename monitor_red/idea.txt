@@ -1,0 +1,40 @@
+AUTOMATIZACIÓN: Monitor de Red
+Consejero: El Monitor de Red (Explorador de Conexiones)
+Frecuencia: Siempre activo (comprueba cada 30 segundos)
+Estado: Implementado
+
+PROPÓSITO:
+Vigila la conexión a internet continuamente. Detecta caídas y
+restauraciones. Registra historial de cortes con duración.
+
+QUÉ HACE:
+- Comprueba conexión cada 30 segundos (ping silencioso)
+- Doble verificación: solo declara caída si TODOS los hosts fallan (1.1.1.1 y 8.8.8.8)
+- Si internet cae → notificación crítica inmediata (no desaparece sola)
+- Durante caída comprueba cada 10 segundos (para detectar restauración rápido)
+- Si internet vuelve → notificación "Conexión restaurada (caída de Xm Ys)"
+- Registra historial en historial_cortes.csv (inicio, fin, duración)
+- Parada limpia con SIGTERM/SIGINT (registra corte parcial si estaba caído)
+
+MODOS DE EJECUCIÓN:
+  python3 monitor_red.py            # daemon de monitorización
+  python3 monitor_red.py --status   # estado actual + últimos 10 cortes
+
+CONFIGURACIÓN (config.toml):
+- Intervalo normal (default 30s) e intervalo durante caída (default 10s)
+- Hosts de ping configurables (default 1.1.1.1, 8.8.8.8)
+- Timeout de ping (default 5s)
+
+ACTIVAR SERVICIO SYSTEMD:
+  cp monitor_red.service ~/.config/systemd/user/
+  systemctl --user daemon-reload
+  systemctl --user enable --now monitor_red.service
+
+REQUISITOS:
+- ping (iputils, ya instalado)
+
+DEPENDENCIAS:
+- comun/ (módulo compartido de automatizaciones)
+
+CONSUMO: ~0% CPU, <3MB RAM
+INTEGRACIÓN FUTURA: heraldo_mensajes (alerta por Telegram)

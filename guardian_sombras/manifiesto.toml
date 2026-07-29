@@ -1,0 +1,101 @@
+# Manifiesto del Guardian de las Sombras
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Solo se exponen las operaciones de SOLO LECTURA (escaner que analiza y
+# reporta). Se OMITEN intencionadamente las operaciones que modifican el
+# sistema o la config de git: --instalar (instala hook pre-commit local),
+# --global (cambia core.hooksPath global) y --whitelist (escribe el fichero
+# .secretos-whitelist). Esas quedan fuera del flujo automatico del Arquitecto.
+
+[meta]
+clave = "guardian_sombras"
+nombre_visible = "Guardian de las Sombras"
+descripcion_corta = "Escanea codigo, historial git y sistema en busca de secretos filtrados y amenazas de seguridad"
+categoria = "seguridad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "secretos"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "escanear_secretos"
+descripcion = "Escaneo basico: busca secretos y credenciales en los archivos staged del repositorio git actual (modo pre-commit)."
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "escanear_working_tree"
+descripcion = "Escanea todos los archivos tracked del working tree del repositorio actual en busca de secretos."
+flags = ["--scan"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "escanear_historial"
+descripcion = "Recorre el historial de commits de git buscando secretos filtrados en versiones anteriores."
+flags = ["--historial"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "escanear_amenazas"
+descripcion = "Escanea el sistema buscando scripts sospechosos, permisos peligrosos, claves SSH, cron y ejecutables recientes."
+flags = ["--amenazas"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "escaneo_completo"
+descripcion = "Escaneo total de solo lectura: secretos en working tree, historial git y amenazas del sistema en una sola pasada."
+flags = ["--completo"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 120
+paths_protegidos = []
+
+# Sin argumentos: todas las operaciones se distinguen por flags fijos.
+# Se deja constancia explicita de que es intencional.
+# [[argumentos]]
+
+[dependencias]
+binarios = ["python3", "git", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardian_sombras/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere detectar secretos o credenciales filtradas en el codigo o el historial git, o buscar amenazas de seguridad en el sistema."
+cuando_no_usar = "Cuando el usuario quiere instalar el hook pre-commit, anadir un falso positivo a la whitelist o modificar la config de git: esas acciones escriben y quedan fuera del flujo automatico."
+ejemplos_peticion = [
+    "escanea en busca de secretos",
+    "busca amenazas en el sistema",
+    "hay credenciales filtradas en el repo",
+    "revisa el historial git por secretos",
+    "haz un escaneo de seguridad completo",
+]
+palabras_clave = ["secretos", "credenciales", "amenazas", "seguridad", "escaner", "tokens", "filtracion"]

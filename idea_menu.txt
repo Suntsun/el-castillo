@@ -1,0 +1,15 @@
+IDEA: Menú de configuraciones del sistema de automatizaciones
+
+Interfaz visual para configurar las automatizaciones sin editar archivos a mano.
+
+POSIBLES OPCIONES:
+- Activar/desactivar automatizaciones individuales
+- Ajustar tamaño de iconos de notificación (32/64/80/120 px)
+- Silenciar/activar notificaciones (toggle global)
+- Configurar umbrales por automatización (días, rutas, etc.)
+- Ver estado de timers/servicios activos
+- Ver logs recientes
+- Configurar sudoers necesarios
+- Gestionar consejeros (frases, imágenes)
+
+ESTADO: Idea pendiente — implementar cuando haya varias automatizaciones activas

@@ -1,0 +1,35 @@
+AUTOMATIZACIÓN: Modo Zen
+Número: 33
+Frecuencia: Bajo demanda (comando o atajo de teclado)
+
+IDEA:
+Un comando que activa un modo de concentración total.
+Elimina todas las distracciones de golpe con una sola tecla.
+Cuando terminas, otro comando lo desactiva todo y vuelve a normal.
+
+QUÉ HACE AL ACTIVARSE:
+- Silencia todas las notificaciones del sistema
+- Pausa el Rotador de Wallpapers (fondo fijo y neutro)
+- Cierra apps distractoras si las tienes abiertas
+- Activa un temporizador visual (ej. 25 min Pomodoro)
+- Pone la pantalla en modo oscuro máximo
+- Muestra popup: "Modo Zen activado — 25 minutos"
+
+QUÉ HACE AL DESACTIVARSE:
+- Restaura todas las notificaciones
+- Reactiva el Rotador de Wallpapers
+- Muestra popup: "Modo Zen terminado — buen trabajo"
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- dunstctl (silenciar notificaciones en Hyprland)
+- hyprctl (controlar Hyprland)
+- notify-send (popups)
+- bash para orquestar todo
+
+MATICES A DECIDIR:
+- ¿Cuánto dura el modo Zen por defecto?
+- ¿Atajo de teclado o solo comando?
+
+ESTADO: Idea pendiente de implementar en Linux

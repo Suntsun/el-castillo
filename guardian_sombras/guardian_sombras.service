@@ -1,0 +1,9 @@
+[Unit]
+Description=Escaneo semanal de amenazas (Guardian de las Sombras)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/guardian_sombras/guardian_sombras.py --amenazas
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000

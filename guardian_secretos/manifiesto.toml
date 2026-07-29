@@ -1,0 +1,121 @@
+# Manifiesto del Guardian de Secretos
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: estado, abrir, editar, cifrar, descifrar.
+# IMPORTANTE: todas las operaciones salvo 'estado' piden la contrasena maestra
+# mediante getpass() (requiere TTY) y/o abren un editor. Estan marcadas con
+# bloquea_terminal=true: el Arquitecto NO las invoca automaticamente; solo el
+# usuario puede lanzarlas de forma explicita. 'estado' es la unica operacion
+# de lectura segura para el flujo del LLM.
+
+[meta]
+clave = "guardian_secretos"
+nombre_visible = "Guardian de Secretos"
+descripcion_corta = "Boveda cifrada con GPG simetrico para guardar, abrir y editar archivos sensibles"
+categoria = "seguridad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "cripta"
+tipo = "wrapper_cli"
+usa_subcomandos = true
+subcomando_por_defecto = "estado"
+
+[[operaciones]]
+nombre = "estado"
+descripcion = "Lista los archivos guardados en la boveda con tamano y fecha de modificacion. No pide contrasena."
+subcomando = "estado"
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "abrir"
+descripcion = "Descifra temporalmente un archivo de la boveda y muestra su contenido en terminal. Pide la contrasena maestra (interactivo)."
+subcomando = "abrir"
+flags = []
+argumentos_aceptados = ["nombre"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "editar"
+descripcion = "Descifra a un temporal, abre el archivo en el editor y lo vuelve a cifrar al cerrar. Pide contrasena y abre editor (interactivo)."
+subcomando = "editar"
+flags = []
+argumentos_aceptados = ["nombre"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "cifrar"
+descripcion = "Cifra un archivo, lo guarda en la boveda y borra de forma segura el original. Pide la contrasena maestra (interactivo)."
+subcomando = "cifrar"
+flags = []
+argumentos_aceptados = ["archivo"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "descifrar"
+descripcion = "Descifra un .gpg de la boveda al directorio actual. Pide la contrasena maestra (interactivo)."
+subcomando = "descifrar"
+flags = []
+argumentos_aceptados = ["archivo"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 120
+paths_protegidos = [
+    "/home/sun/.config/automatizaciones/boveda",
+]
+
+[[argumentos]]
+clave = "nombre"
+descripcion = "Nombre del archivo dentro de la boveda (con o sin extension .gpg)."
+tipo = "cadena"
+obligatorio = true
+regex = "[A-Za-z0-9._-]+"
+forma_paso = "posicional"
+
+[[argumentos]]
+clave = "archivo"
+descripcion = "Ruta del archivo a cifrar, o nombre/ruta del .gpg a descifrar."
+tipo = "cadena"
+obligatorio = true
+regex = "[A-Za-z0-9._/-]+"
+forma_paso = "posicional"
+
+[dependencias]
+binarios = ["gpg", "shred"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardian_secretos/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere consultar que secretos guarda la boveda cifrada o saber si esta vacia o que contiene."
+cuando_no_usar = "Para abrir, editar, cifrar o descifrar archivos: esas operaciones piden la contrasena maestra por TTY y solo las lanza el usuario manualmente, no el Arquitecto."
+ejemplos_peticion = [
+    "que hay en la boveda de secretos",
+    "esta abierta la boveda de secretos",
+    "lista mis secretos cifrados",
+    "muestrame el estado de la cripta",
+]
+palabras_clave = ["boveda", "cripta", "secretos", "gpg", "cifrado", "secreto", "contrasena"]

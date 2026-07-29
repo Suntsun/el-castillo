@@ -1,0 +1,85 @@
+# Manifiesto del Purificador de Datos
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: escanear, generar_informe, borrar_interactivo.
+# La operacion 'borrar_interactivo' tiene bloquea_terminal=true porque
+# necesita TTY/stdin (pregunta por cada grupo de duplicados). El Arquitecto
+# NO la invoca desde el flujo automatico del LLM; solo el usuario la lanza.
+# Las carpetas posicionales NO se exponen: se usan las configuradas.
+
+[meta]
+clave = "purificador_datos"
+nombre_visible = "Purificador de Datos"
+descripcion_corta = "Detecta archivos duplicados por hash SHA256 en las carpetas configuradas y calcula el espacio recuperable"
+categoria = "mantenimiento"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "dupes"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "escanear"
+descripcion = "Escanea las carpetas configuradas y muestra los grupos de archivos duplicados y el espacio recuperable. Solo lee."
+flags = []
+argumentos_aceptados = ["tamano_min"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "generar_informe"
+descripcion = "Escanea y ademas guarda un informe detallado de duplicados en un archivo de texto en el directorio de informes."
+flags = ["--informe"]
+argumentos_aceptados = ["tamano_min"]
+requiere_confirmacion = true
+peligrosidad = "escritura_local"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "borrar_interactivo"
+descripcion = "Modo interactivo que pregunta por cada grupo que duplicados mover a la papelera. Necesita TTY y bloquea la terminal."
+flags = ["--borrar"]
+argumentos_aceptados = ["tamano_min"]
+requiere_confirmacion = true
+peligrosidad = "destructiva"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 600
+paths_protegidos = []
+
+[[argumentos]]
+clave = "tamano_min"
+descripcion = "Tamano minimo de archivo a considerar. Numero opcionalmente seguido de K, M o G (ej: 1M, 500K, 2G)."
+tipo = "cadena"
+obligatorio = false
+regex = "^[0-9]+[KMG]?$"
+forma_paso = "flag_largo"
+flag_literal = "--min"
+
+[dependencias]
+binarios = ["python3", "notify-send", "xdg-open"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/purificador_datos/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere encontrar archivos duplicados, saber cuanto espacio puede recuperar o generar un informe de duplicados."
+cuando_no_usar = "Cuando el usuario quiere borrar archivos sin supervision (el borrado es interactivo y manual) o limpiar logs o caches concretas."
+ejemplos_peticion = [
+    "busca archivos duplicados",
+    "cuantos duplicados tengo",
+    "genera un informe de duplicados",
+    "cuanto espacio puedo recuperar con los duplicados",
+]
+palabras_clave = ["duplicados", "duplicado", "dupes", "repetidos", "hash", "espacio", "limpiar"]

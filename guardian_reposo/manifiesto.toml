@@ -1,0 +1,113 @@
+# Manifiesto del Guardián del Reposo
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: apagar, reiniciar, suspender, cancelar, estado.
+# Se OMITE intencionadamente el subcomando 'menu' del script real, porque abre
+# un menú visual (walker) interactivo que no encaja en el flujo del Arquitecto.
+#
+# NOTA sobre el retardo: el script acepta el tiempo en formato "30m", "1h",
+# "2h30m" (cadena), NO como minutos enteros. El argumento "retardo" se modela
+# como cadena con regex acorde al parser real (parsear_tiempo).
+
+[meta]
+clave = "guardian_reposo"
+nombre_visible = "Guardián del Reposo"
+descripcion_corta = "Programa apagado, reinicio o suspensión del sistema con cuenta atrás y aviso previo"
+categoria = "mantenimiento"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "rast"
+tipo = "wrapper_cli"
+usa_subcomandos = true
+subcomando_por_defecto = "status"
+
+[[operaciones]]
+nombre = "apagar"
+descripcion = "Programa el apagado de TODO el sistema tras el retardo indicado. Afecta a toda la maquina."
+subcomando = "shutdown"
+flags = []
+argumentos_aceptados = ["retardo"]
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "reiniciar"
+descripcion = "Programa el reinicio de TODO el sistema tras el retardo indicado. Afecta a toda la maquina."
+subcomando = "restart"
+flags = []
+argumentos_aceptados = ["retardo"]
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "suspender"
+descripcion = "Programa la suspension de TODO el sistema tras el retardo indicado. Afecta a toda la maquina."
+subcomando = "suspend"
+flags = []
+argumentos_aceptados = ["retardo"]
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "cancelar"
+descripcion = "Cancela el apagado, reinicio o suspension que estuviera programado."
+subcomando = "cancel"
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "estado"
+descripcion = "Muestra si hay un apagado, reinicio o suspension programado y para que hora."
+subcomando = "status"
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 30
+paths_protegidos = []
+
+[[argumentos]]
+clave = "retardo"
+descripcion = "Tiempo de espera antes de ejecutar la accion, en formato 30m, 1h o 2h30m. Si se omite, el comando requiere un valor; usa un retardo razonable como 30m."
+tipo = "cadena"
+obligatorio = false
+regex = "(?:\\d+h)?(?:\\d+m)?"
+forma_paso = "posicional"
+
+[dependencias]
+binarios = ["systemctl", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardian_reposo/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere programar o cancelar un apagado, reinicio o suspension del ordenador, o consultar si hay algo programado."
+cuando_no_usar = "Cuando el usuario quiere apagar o reiniciar AHORA mismo sin retardo (eso lo hace el sistema directamente) o cuando habla de cerrar una aplicacion concreta, no toda la maquina."
+ejemplos_peticion = [
+    "apaga el pc en 30 minutos",
+    "reinicia el sistema en una hora",
+    "suspende el equipo en 30m",
+    "cancela el apagado programado",
+    "hay algun apagado programado",
+]
+palabras_clave = ["apagar", "apagado", "reiniciar", "reinicio", "suspender", "suspension", "cancelar", "programar", "temporizador", "reposo"]

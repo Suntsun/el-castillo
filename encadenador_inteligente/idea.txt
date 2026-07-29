@@ -1,0 +1,38 @@
+AUTOMATIZACIÓN: Encadenador Inteligente
+Número: 56
+Frecuencia: Siempre activo (escucha eventos de otras automatizaciones)
+
+IDEA:
+El pegamento entre todas las automatizaciones.
+Cuando una automatización termina, el Encadenador decide
+si debe disparar automáticamente otra. Crea pipelines inteligentes.
+
+CÓMO FUNCIONA:
+- Cada automatización emite un "evento" al terminar (ej: "rss_descargado")
+- El Encadenador escucha esos eventos
+- Si el evento coincide con una regla, lanza la siguiente automatización
+- Las reglas las defines tú en un archivo de configuración simple
+
+EJEMPLOS DE CADENAS:
+  RSS descargado → IA resume artículos → Bot Telegram manda resumen al móvil
+  Archivo nuevo en Downloads → Watcher detecta → Organizador lo mueve → Logger registra
+  Actualizador termina → Checklist comprueba que todo sigue bien → Generador Informes anota
+  Monitor Red detecta caída → Bot Telegram avisa → Logger registra el corte
+
+ARCHIVO DE REGLAS (simple):
+  cuando: rss_descargado     → ejecutar: agente_ia_diario
+  cuando: archivo_detectado  → ejecutar: organizador, logger
+  cuando: red_caida          → ejecutar: bot_telegram_alerta
+
+DIFERENCIA CON EL ORQUESTADOR:
+- Orquestador: coordina y programa cuándo corre cada automatización
+- Encadenador: reacciona a eventos en tiempo real y los conecta
+
+TIPO: Siempre activo — consume muy poco (solo escucha eventos)
+
+HERRAMIENTAS A USAR:
+- Python con sistema de eventos (publish/subscribe)
+- Archivo de reglas en formato simple (yaml o txt)
+- systemd para arranque automático
+
+ESTADO: Idea avanzada — implementar cuando haya varias automatizaciones funcionando

@@ -1,0 +1,12 @@
+[general]
+nombre = "cronista_informes"
+descripcion = "Informe semanal del ecosistema de automatizaciones"
+
+[informe]
+ruta_informes = "~/Escritorio/automatizaciones/logs/informes"
+dia_semana = "Sun"
+hora = "21:00"
+
+[notificacion]
+duracion = 10000
+severidad = "info"

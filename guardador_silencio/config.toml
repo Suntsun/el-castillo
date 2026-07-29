@@ -1,0 +1,17 @@
+[general]
+nombre = "guardador_silencio"
+descripcion = "Modo Zen: concentracion total sin distracciones"
+
+[zen]
+# Duracion por defecto en minutos
+duracion_minutos = 25
+# URL de música para el modo zen (se abre al activar)
+musica_url = "https://www.youtube.com/live/YmQ7jRgf4f0"
+
+[notificacion]
+# Severidad y duracion de la notificacion al activar
+severidad_activar = "info"
+duracion_activar = 5000
+# Severidad y duracion de la notificacion al desactivar
+severidad_desactivar = "exito"
+duracion_desactivar = 6000

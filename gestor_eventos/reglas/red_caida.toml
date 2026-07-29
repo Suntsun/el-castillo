@@ -1,0 +1,6 @@
+[regla]
+nombre = "red_caida"
+evento = "red"
+condicion = "state == \"down\""
+accion = "notify-send 'Red caida' 'Se ha perdido la conexion de red'"
+cooldown = 60

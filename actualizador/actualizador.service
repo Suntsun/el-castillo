@@ -1,0 +1,11 @@
+[Unit]
+Description=Actualización automática del sistema
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/actualizador/actualizador.py --apply
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000

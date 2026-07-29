@@ -1,0 +1,44 @@
+[general]
+nombre = "limpiador"
+descripcion = "Limpieza semanal del sistema"
+
+[tareas]
+cache_pacman = true
+cache_yay = true
+cache_apps = true
+logs_sistema = true
+paquetes_huerfanos = true
+papelera = true
+miniaturas = true
+
+[umbrales]
+dias_logs = 7
+dias_cache = 7
+dias_yay = 30
+versiones_pacman = 3
+
+[rutas]
+cache_apps = "~/.cache"
+cache_yay = "~/.cache/yay"
+papelera = "~/.local/share/Trash"
+miniaturas = "~/.cache/thumbnails"
+
+[whitelist_cache]
+# Solo estos directorios dentro de ~/.cache se limpiarán (archivos > dias_cache días)
+# Todo lo demás se deja intacto
+dirs = [
+    "chromium",
+    "microsoft-edge",
+    "opera",
+    "gstreamer-1.0",
+    "kdenlive",
+    "ImageMagick",
+    "audioCache.kcache",
+    "gnome-desktop-thumbnailer",
+    "glycin",
+    "elephant",
+    "aether",
+    "gtk-3.0",
+    "gtk-4.0",
+    "nvim",
+]

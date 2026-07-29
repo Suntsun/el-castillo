@@ -1,0 +1,28 @@
+AUTOMATIZACIÓN: Traductor de Terminal
+Número: 43
+Frecuencia: Bajo demanda (comando en terminal)
+
+IDEA:
+Traduce cualquier texto al instante sin salir del terminal
+ni abrir el navegador. Rápido y minimalista.
+
+QUÉ HACE:
+- Comando simple: "tr <texto>" → muestra traducción en terminal
+- Detecta el idioma automáticamente
+- Traduce al español por defecto, o al idioma que indiques
+- También puede traducir el contenido del portapapeles directamente
+- Opcional: copia la traducción al portapapeles automáticamente
+
+EJEMPLOS DE USO:
+  tr "hello world"               → "hola mundo"
+  tr "bonjour" --to en           → "hello"
+  tr --clipboard                 → traduce lo que tienes copiado
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- translate-shell (traductor de terminal, usa Google Translate)
+- bash para los atajos de comando
+- wl-copy (portapapeles en Wayland)
+
+ESTADO: Idea pendiente de implementar en Linux

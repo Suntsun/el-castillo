@@ -1,0 +1,12 @@
+[general]
+nombre = "cronista_cambios"
+descripcion = "Generador de changelogs desde historial git"
+
+[changelog]
+formato = "keepachangelog"
+incluir_hash = false
+incluir_autor = false
+
+[notificacion]
+duracion = 3000
+severidad = "info"

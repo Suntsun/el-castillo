@@ -1,0 +1,15 @@
+[Unit]
+Description=Encadenador Inteligente — encadena automatizaciones
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/encadenador_inteligente/encadenador_inteligente.py
+Restart=on-failure
+RestartSec=10
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=default.target

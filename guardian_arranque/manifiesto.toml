@@ -1,0 +1,79 @@
+# Manifiesto del Guardian del Arranque
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Checklist de SOLO LECTURA del estado del sistema tras el arranque:
+# internet, disco, temperatura CPU, timers systemd, errores recientes y
+# amenazas. Ninguna operacion modifica el sistema; solo lee y notifica.
+# Las dos flags reales (--silencioso, --solo-notificacion) solo cambian el
+# canal de salida, asi que se modelan como operaciones distintas.
+
+[meta]
+clave = "guardian_arranque"
+nombre_visible = "Guardian del Arranque"
+descripcion_corta = "Ejecuta un checklist de salud del sistema tras el arranque (internet, disco, temperatura, timers, errores)"
+categoria = "monitorizacion"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "arranque"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "mostrar"
+descripcion = "Ejecuta el checklist completo, lo muestra en terminal con semaforo de colores y envia una notificacion con el resumen."
+flags = []
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "solo_notificacion"
+descripcion = "Ejecuta el checklist y solo envia la notificacion del sistema, sin imprimir el detalle en terminal."
+flags = ["--solo-notificacion"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "silencioso"
+
+[[operaciones]]
+nombre = "mostrar_silencioso"
+descripcion = "Ejecuta el checklist y solo lo muestra en terminal, sin enviar notificacion del sistema."
+flags = ["--silencioso"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 60
+paths_protegidos = []
+
+# Sin argumentos: las variantes se distinguen por flags fijos.
+# [[argumentos]]
+
+[dependencias]
+binarios = ["python3", "ping", "systemctl", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardian_arranque/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere comprobar la salud general del sistema, tipicamente tras arrancar: si hay internet, espacio en disco, temperatura, timers activos y errores recientes."
+cuando_no_usar = "Cuando el usuario quiere ver o seguir logs de errores en detalle (eso es 'errores') o diagnosticar un fallo concreto a fondo."
+ejemplos_peticion = [
+    "haz el checklist de arranque",
+    "esta todo bien al arrancar",
+    "revisa la salud del sistema",
+    "como esta el sistema hoy",
+]
+palabras_clave = ["arranque", "checklist", "salud", "sistema", "boot", "estado", "diagnostico"]

@@ -1,0 +1,24 @@
+AUTOMATIZACIÓN: Detector de Duplicados
+Número: 25
+Frecuencia: 1 vez por semana o bajo demanda
+
+IDEA:
+Busca archivos duplicados en el sistema (mismo contenido, distinto nombre)
+y genera una lista de cuáles puedes borrar para liberar espacio.
+Nunca borra solo — tú decides qué eliminar.
+
+QUÉ HACE:
+- Escanea las carpetas que le indiques
+- Detecta duplicados por contenido real (no solo por nombre)
+- Genera un informe con los duplicados encontrados y el espacio que liberarías
+- Manda popup con resumen: "Encontré 23 duplicados, podrías liberar 4GB"
+- Tú revisas y borras manualmente lo que quieras
+
+TIPO: Duerme y se despierta — consume 0 recursos entre ejecuciones
+
+HERRAMIENTAS A USAR:
+- fdupes o rmlint (herramientas de detección de duplicados)
+- Python para el informe
+- notify-send (popup resumen)
+
+ESTADO: Idea pendiente de implementar en Linux

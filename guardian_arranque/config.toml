@@ -1,0 +1,36 @@
+[general]
+nombre = "guardian_arranque"
+descripcion = "Checklist de arranque: comprueba que todo esté en orden tras el boot"
+
+[checks]
+# Activar/desactivar comprobaciones individuales
+internet = true
+disco = true
+temperatura = true
+timers = true
+errores_logs = true
+amenazas = true
+
+[internet]
+# Hosts para comprobar conectividad (basta que uno responda)
+hosts = ["1.1.1.1", "8.8.8.8"]
+timeout = 3
+
+[disco]
+# Porcentaje mínimo libre en / para considerar OK
+umbral_porciento_libre = 20
+
+[temperatura]
+# Temperatura máxima aceptable en grados Celsius
+umbral_max = 70
+
+[timers]
+# Timers de systemd user que deben estar activos
+nombres = ["tejedor_entorno.timer", "guardian_arranque.timer", "guardian_sombras.timer", "cronista_errores.timer"]
+
+[errores_logs]
+# Buscar errores en logs de las últimas N horas
+horas = 24
+
+[notificacion]
+duracion = 8000

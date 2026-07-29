@@ -1,0 +1,28 @@
+AUTOMATIZACIÓN: Checklist de Arranque
+Número: 37
+Frecuencia: Al encender el PC (arranque del sistema)
+
+IDEA:
+Al encender el PC, comprueba en segundos que todo está en orden
+y te manda un semáforo visual. Un vistazo y sabes si todo va bien.
+
+QUÉ COMPRUEBA:
+- ✅ Internet conectado y funcionando
+- ✅ Espacio en disco suficiente (>20% libre)
+- ✅ Temperatura normal (<70°C)
+- ✅ Automatizaciones activas (Bot Telegram, Monitor Red, Watcher...)
+- ✅ Último backup realizado hace menos de 7 días
+- ✅ Sin errores en el Logger de la semana pasada
+
+CÓMO LO MUESTRA:
+- Popup con semáforo: VERDE (todo bien), AMARILLO (algo a revisar), ROJO (algo falló)
+- Si hay problemas, indica cuáles exactamente
+
+TIPO: Duerme y se despierta — solo activo unos segundos al arrancar
+
+HERRAMIENTAS A USAR:
+- bash o Python
+- notify-send (popup semáforo)
+- systemd para ejecutar al arranque
+
+ESTADO: Idea pendiente de implementar en Linux

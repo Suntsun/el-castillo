@@ -1,0 +1,7 @@
+[general]
+nombre = "oraculo_errores"
+descripcion = "Explicador de errores y stacktraces"
+
+[notificacion]
+duracion = 3000
+severidad = "info"

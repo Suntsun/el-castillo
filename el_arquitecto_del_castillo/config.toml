@@ -1,0 +1,11 @@
+[general]
+nombre = "el_arquitecto_del_castillo"
+descripcion = "Asistente interactivo del ecosistema"
+
+[llm]
+modelo = "qwen2.5:7b"
+timeout = 15
+
+[notificacion]
+duracion = 3000
+severidad = "info"

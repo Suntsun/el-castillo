@@ -1,0 +1,35 @@
+AUTOMATIZACIÓN: Cifrador de Archivos Sensibles
+Número: 52
+Frecuencia: Bajo demanda (comando en terminal)
+
+IDEA:
+Cifra y descifra tus archivos de passwords, APIs e información sensible
+con una contraseña maestra. Los archivos están siempre cifrados en disco
+y solo se abren cuando tú lo pides.
+
+CÓMO FUNCIONA:
+- Tus archivos sensibles se guardan cifrados (.gpg)
+- Para leer: escribes "abrir passwords" → pide contraseña maestra → muestra en terminal
+- Para editar: descifra temporalmente, abres en neovim, al cerrar se vuelve a cifrar
+- Para cerrar: el archivo descifrado desaparece de memoria
+- Nunca hay versión sin cifrar en disco
+
+COMANDOS SIMPLES:
+  abrir apis          → descifra y muestra ~/apis/
+  editar passwords    → descifra, abre en neovim, cifra al salir
+  cifrar <archivo>    → cifra cualquier archivo con contraseña maestra
+  estado              → lista archivos sensibles y si están cifrados o no
+
+INTEGRACIÓN CON GESTOR DE APIS:
+- El Gestor_APIs usa este cifrador para proteger las keys
+- Una sola contraseña maestra para todo lo sensible
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- gpg (cifrado estándar y robusto)
+- neovim (editor)
+- bash para los comandos simples
+- shred (borrado seguro de temporales)
+
+ESTADO: Idea pendiente de implementar en Linux

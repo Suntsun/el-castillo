@@ -1,0 +1,19 @@
+[general]
+nombre = "purificador_datos"
+descripcion = "Detector de archivos duplicados"
+
+[escaneo]
+# Carpetas a escanear por defecto (cuando se ejecuta sin argumentos)
+carpetas = ["~/Downloads", "~/Documents", "~/Music", "~/Pictures"]
+# Tamaño mínimo de archivo a considerar (bytes). 0 = todos
+min_bytes = 1024
+# Extensiones a ignorar (archivos temporales, etc)
+ignorar_extensiones = [".tmp", ".swp", ".lock", ".pid"]
+# Carpetas a excluir
+ignorar_carpetas = [".git", "node_modules", "__pycache__", ".cache"]
+# Máximo de archivos a escanear (seguridad para no bloquear el sistema)
+max_archivos = 100000
+
+[notificacion]
+duracion = 8000
+severidad = "info"

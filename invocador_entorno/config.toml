@@ -1,0 +1,7 @@
+[general]
+nombre = "invocador_entorno"
+descripcion = "Lanzador de modos de trabajo"
+
+[notificacion]
+duracion = 3000
+severidad = "info"

@@ -1,0 +1,49 @@
+AUTOMATIZACIÓN: Actualizador Automático
+Consejero: El Actualizador (Ingeniero de Actualizaciones)
+Frecuencia: Diario a las 4:00 AM (systemd timer con Persistent=true)
+Estado: Implementado
+
+PROPÓSITO:
+Actualiza todos los paquetes del sistema (pacman + yay/AUR) de forma
+desatendida. Solo actúa si hay conexión a internet. Solo notifica si
+hubo actualizaciones.
+
+QUÉ HACE:
+- Verifica conexión a internet (ping)
+- Comprueba si pacman está bloqueado (db.lck) — si otro proceso lo usa, aborta limpiamente
+- Comprueba actualizaciones disponibles con checkupdates / yay -Qua
+- Guarda snapshot pre-actualización en snapshots/ (versiones old -> new para rollback)
+- Actualiza paquetes oficiales: sudo pacman -Syu --noconfirm
+- Actualiza paquetes AUR: yay -Sua --noconfirm
+- Registra cada paquete actualizado en log
+- Notifica solo si hubo cambios (configurable)
+- Si no hay conexión, pacman bloqueado o no hay actualizaciones → silencioso
+
+MODOS DE EJECUCIÓN:
+  python3 actualizador.py              # actualización completa
+  python3 actualizador.py --dry-run    # muestra qué se actualizaría sin tocar nada
+  python3 actualizador.py --check      # solo comprueba si hay actualizaciones pendientes
+
+CONFIGURACIÓN (config.toml):
+- Activar/desactivar pacman y AUR por separado
+- Host y timeout para verificar conexión
+- Notificar solo si hay cambios (default: sí)
+
+ACTIVAR TIMER SYSTEMD:
+  cp actualizador.service actualizador.timer ~/.config/systemd/user/
+  systemctl --user daemon-reload
+  systemctl --user enable --now actualizador.timer
+
+REQUISITOS:
+- pacman-contrib (para checkupdates): sudo pacman -S pacman-contrib
+- yay (ya instalado)
+- Reglas sudoers para: pacman -Syu
+
+DEPENDENCIAS:
+- comun/ (módulo compartido de automatizaciones)
+
+NOTIFICACIONES:
+- Éxito: "Actualizados X paquetes del sistema y Y de AUR"
+- Check: "Hay X actualizaciones pendientes (Y sistema, Z AUR)"
+- Error: "La actualización falló en: pacman/AUR"
+- Sin cambios: no notifica

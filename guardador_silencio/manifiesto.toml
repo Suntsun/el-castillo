@@ -1,0 +1,84 @@
+# Manifiesto del Guardador del Silencio
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: activar (on), desactivar (off), estado (status).
+# Se OMITE intencionadamente la variante 'zen <minutos>' (duracion como primer
+# argumento posicional) porque chocaria con el modelo de subcomandos del
+# esquema: 'activar' usa siempre la duracion por defecto de la config.
+# Tambien se omite el subcomando interno '_timer' (proceso en background,
+# no debe invocarse desde el Arquitecto).
+
+[meta]
+clave = "guardador_silencio"
+nombre_visible = "Guardador del Silencio"
+descripcion_corta = "Activa el modo Zen: silencia notificaciones, pausa el rotador de wallpapers y abre musica de concentracion"
+categoria = "productividad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "zen"
+tipo = "wrapper_cli"
+usa_subcomandos = true
+subcomando_por_defecto = "on"
+
+[[operaciones]]
+nombre = "activar"
+descripcion = "Activa el modo Zen: pone mako en do-not-disturb, silencia notificaciones, pausa el rotador de wallpapers y abre la musica de concentracion durante la duracion por defecto."
+flags = []
+subcomando = "on"
+argumentos_aceptados = []
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "desactivar"
+descripcion = "Desactiva el modo Zen manualmente: restaura mako y las notificaciones y reactiva el rotador de wallpapers."
+flags = []
+subcomando = "off"
+argumentos_aceptados = []
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "estado"
+descripcion = "Muestra si el modo Zen esta activo y, en su caso, cuanto tiempo queda."
+flags = []
+subcomando = "status"
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 15
+paths_protegidos = []
+
+# Sin argumentos: cada operacion se distingue por su subcomando.
+# Se declara la ausencia de forma explicita; no hay [[argumentos]].
+
+[dependencias]
+binarios = ["python3", "makoctl", "systemctl", "xdg-open", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardador_silencio/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere concentrarse o trabajar sin distracciones: silenciar notificaciones, activar o desactivar el modo zen, o consultar si esta activo."
+cuando_no_usar = "Cuando el usuario solo quiere silenciar las notificaciones puntualmente sin entrar en modo concentracion, o cuando pide pausar la musica o el rotador de wallpapers de forma aislada."
+ejemplos_peticion = [
+    "activa el modo zen",
+    "silencio y concentracion",
+    "quita el modo zen",
+    "como esta el modo zen",
+]
+palabras_clave = ["zen", "silencio", "concentracion", "concentrarse", "foco", "notificaciones", "modo"]

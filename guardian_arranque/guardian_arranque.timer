@@ -1,0 +1,8 @@
+[Unit]
+Description=Timer para checklist de arranque (30s despues del boot)
+
+[Timer]
+OnBootSec=30s
+
+[Install]
+WantedBy=timers.target

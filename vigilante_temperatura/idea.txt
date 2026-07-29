@@ -1,0 +1,44 @@
+AUTOMATIZACIÓN: Vigilante de Temperatura
+Consejero: El Vigilante de Temperatura (Centinela Térmico)
+Frecuencia: Siempre activo (comprueba cada 60 segundos)
+Estado: Implementado
+
+PROPÓSITO:
+Vigila la temperatura de CPU y NVMe continuamente. Si se calienta
+demasiado avisa antes de que el sistema sufra daños.
+
+QUÉ HACE:
+- Comprueba temperaturas cada 60 segundos (silencioso en operación normal)
+- AVISO AMARILLO si supera 75°C: "CPU caliente — revisa la ventilación"
+- AVISO ROJO si supera 90°C: "CPU en peligro — cierra programas ahora"
+  (notificación crítica que no desaparece sola)
+- Notifica cuando la temperatura vuelve a la normalidad
+- Registra picos de temperatura en log
+- Cooldown de 5 minutos para no spamear notificaciones
+
+SENSORES MONITORIZADOS:
+- k10temp-pci-00c3 (CPU AMD: Tctl, Tccd1)
+- nvme-pci-0100 (disco NVMe)
+- Configurable en config.toml (chips vacío = monitorizar todos)
+
+CONFIGURACIÓN (config.toml):
+- Intervalo de comprobación (default 60s)
+- Umbrales de aviso y crítico (default 75°C / 90°C)
+- Cooldown entre notificaciones repetidas (default 300s)
+- Lista de chips a monitorizar
+
+EJECUCIÓN MANUAL:
+  python3 /home/sun/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
+
+ACTIVAR SERVICIO SYSTEMD:
+  cp vigilante_temperatura.service ~/.config/systemd/user/
+  systemctl --user daemon-reload
+  systemctl --user enable --now vigilante_temperatura.service
+
+REQUISITOS:
+- lm_sensors (ya instalado)
+
+DEPENDENCIAS:
+- comun/ (módulo compartido de automatizaciones)
+
+CONSUMO: ~1% CPU, <3MB RAM

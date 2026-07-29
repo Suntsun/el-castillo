@@ -1,0 +1,39 @@
+AUTOMATIZACIÓN: Tagger con Opencode
+Número: 62
+Frecuencia: Al guardar archivos nuevos + bajo demanda
+
+IDEA:
+Opencode analiza tus archivos automáticamente y les añade etiquetas
+en el nombre o en un índice. Cuando buscas algo, encuentras todo
+lo relacionado aunque no recuerdes el nombre del archivo.
+
+CÓMO FUNCIONA CON OPENCODE:
+- Detecta un archivo nuevo (txt, py, md, pdf...)
+- Opencode lee el contenido y genera etiquetas relevantes
+- Las etiquetas se añaden a un índice centralizado: indice.txt
+- Cuando buscas "python api automatización" → encuentra todos los archivos relacionados
+
+EJEMPLO DE ÍNDICE:
+  backup_script.py        → [python, backup, rsync, automatización, pc1-pc2]
+  notas_reunion.txt       → [reunión, trabajo, pendientes, mayo]
+  apis/openai.txt         → [api, openai, ia, credencial]
+
+INTEGRACIÓN CON OPENCODE:
+- Opencode entiende el contexto real del archivo, no solo el nombre
+- Puede etiquetar código, notas, documentos, scripts
+- El Buscador_Universal usa este índice para encontrar archivos por concepto
+- Con el tiempo construye un mapa inteligente de todo tu sistema
+
+COMANDOS:
+  tagger <archivo>        → etiqueta un archivo concreto
+  tagger --todo           → etiqueta todos los archivos sin etiquetar
+  buscar-tag "python"     → lista todos los archivos con esa etiqueta
+
+TIPO: Duerme y se despierta — activo al detectar archivos nuevos
+
+HERRAMIENTAS A USAR:
+- opencode (análisis de contenido con IA)
+- Python para gestionar el índice
+- Integración con Watcher_Carpeta y Buscador_Universal
+
+ESTADO: Idea pendiente de implementar en Linux

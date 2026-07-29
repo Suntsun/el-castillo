@@ -1,0 +1,43 @@
+AUTOMATIZACIÓN: Explicador de Errores
+Número: 66
+Frecuencia: Bajo demanda (comando o atajo de teclado)
+
+IDEA:
+Pega un stacktrace o mensaje de error y recibe al instante un análisis
+con las causas más probables y los pasos concretos para solucionarlo.
+Sin salir del terminal, sin abrir el navegador.
+
+QUÉ HACE:
+- Acepta un stacktrace desde stdin, portapapeles o fichero
+- Identifica el lenguaje/framework por el formato del error
+- Analiza con un LLM local (Ollama) o remoto la causa raíz
+- Devuelve: qué salió mal, por qué, y cómo arreglarlo
+- Opcional: propone el fix directamente en el archivo afectado
+
+EJEMPLO DE USO:
+  explicar-error                  → lee el portapapeles y analiza
+  explicar-error error.log        → analiza un fichero de log
+  cat stacktrace.txt | explicar   → por pipe desde stdin
+  explicar-error --fix            → propone el parche directamente
+
+EJEMPLO DE SALIDA:
+  ERROR: TypeError: cannot read property 'map' of undefined
+  CAUSA: El array 'items' llega como undefined porque la llamada a la
+         API falló silenciosamente en la línea 42 de api.js
+  FIX:   Añade un guard: const list = items ?? [];
+  DOCS:  https://... (referencia relevante)
+
+TIPO: Duerme y se despierta — se ejecuta solo cuando lo invocas
+
+HERRAMIENTAS A USAR:
+- Ollama (LLM local) o API de Anthropic/OpenAI
+- Python o bash para parsear el stacktrace
+- xclip / wl-clipboard para leer del portapapeles
+- Integración con Logger_Errores_Global para contexto adicional
+
+MATICES A DECIDIR:
+- ¿LLM local (privacidad) o remoto (más potente)?
+- ¿Integrar con el editor para aplicar el fix automáticamente?
+- ¿Guardar historial de errores resueltos para aprendizaje?
+
+ESTADO: Idea pendiente de implementar en Linux

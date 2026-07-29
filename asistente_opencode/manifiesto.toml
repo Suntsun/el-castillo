@@ -1,0 +1,106 @@
+# Manifiesto del Asistente OpenCode
+# Envuelve capacidades de SOLO LECTURA de OpenCode (agente arquitecto-lectura)
+# como operaciones invocables por el Arquitecto, dentro del gating normal.
+
+[meta]
+clave = "asistente_opencode"
+nombre_visible = "Asistente OpenCode"
+descripcion_corta = "Explica, analiza y resume codigo o busca en un proyecto usando OpenCode en modo solo lectura"
+categoria = "productividad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "asistente"
+tipo = "wrapper_cli"
+usa_subcomandos = true
+subcomando_por_defecto = "explicar"
+
+[[operaciones]]
+nombre = "explicar"
+descripcion = "Explica que hace un fichero de codigo o configuracion y como, en lenguaje claro."
+flags = []
+subcomando = "explicar"
+argumentos_aceptados = ["fichero"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "analizar"
+descripcion = "Analiza un fichero: estructura, patrones, posibles fallos, riesgos y mejoras (sin aplicarlas)."
+flags = []
+subcomando = "analizar"
+argumentos_aceptados = ["fichero"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "resumir"
+descripcion = "Resume la estructura y el proposito de un directorio o proyecto entero."
+flags = []
+subcomando = "resumir"
+argumentos_aceptados = ["directorio"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "buscar"
+descripcion = "Busqueda semantica en lenguaje natural sobre el proyecto del directorio actual."
+flags = []
+subcomando = "buscar"
+argumentos_aceptados = ["consulta"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = true
+requiere_sudo = false
+tiempo_max_segundos = 300
+
+[[argumentos]]
+clave = "fichero"
+descripcion = "Ruta absoluta del fichero a explicar o analizar."
+tipo = "ruta_fichero"
+obligatorio = true
+forma_paso = "posicional"
+
+[[argumentos]]
+clave = "directorio"
+descripcion = "Ruta absoluta del directorio/proyecto a resumir."
+tipo = "ruta_directorio"
+obligatorio = true
+forma_paso = "posicional"
+
+[[argumentos]]
+clave = "consulta"
+descripcion = "Pregunta en lenguaje natural sobre el codigo (que buscar)."
+tipo = "cadena"
+obligatorio = true
+forma_paso = "posicional"
+regex = "^[\\wáéíóúñü .,;:?!¿¡()/_-]+$"
+
+[dependencias]
+binarios = ["opencode"]
+paquetes_python = []
+ficheros_config = []
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere entender, analizar o resumir codigo o un proyecto, o buscar donde esta algo en el codigo."
+cuando_no_usar = "Cuando pide MODIFICAR, crear o refactorizar codigo (eso es delegar_opencode), o para errores concretos (usa explicar/oraculo_errores)."
+ejemplos_peticion = [
+    "explicame este archivo /home/sun/proyecto/main.py",
+    "analiza el codigo de este fichero",
+    "resume de que va este proyecto",
+    "donde se valida el login en este repo",
+    "que hace este script",
+]
+palabras_clave = ["explica", "analiza", "resume", "codigo", "proyecto", "entender", "revisa"]

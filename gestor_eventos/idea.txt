@@ -1,0 +1,47 @@
+AUTOMATIZACIÓN: Sistema de Eventos
+Número: 68
+Frecuencia: Continua — escucha eventos del sistema en segundo plano
+
+IDEA:
+Un bus de eventos central que detecta cambios en el entorno (monitor
+conectado, red cambiada, app abierta, batería baja...) y dispara
+scripts personalizados. El pegamento inteligente entre todas las
+demás automatizaciones.
+
+QUÉ HACE:
+- Escucha eventos del sistema operativo y el entorno
+- Al detectar un evento, busca en su tabla de reglas qué script lanzar
+- Ejecuta el script correspondiente con el contexto del evento
+- Registra en un log qué eventos ocurrieron y qué acciones se tomaron
+
+EVENTOS QUE DETECTA:
+  monitor_conectado       → activa Perfil_Sobremesa, recoloca ventanas
+  monitor_desconectado    → vuelve a layout de portátil
+  red_cambiada (casa)     → desactiva VPN, activa Auto_Backup
+  red_cambiada (externa)  → activa VPN, endurece firewall
+  app_abierta (zoom/meet) → activa Modo_Reunion
+  app_cerrada (zoom/meet) → restaura configuración de audio
+  batería < 20%           → activa Optimizador_Batería
+  usb_conectado           → lanza Auto_Mount_Inteligente
+
+CÓMO SE CONFIGURA:
+  eventos.yaml:
+    - evento: monitor_conectado
+      condicion: count >= 2
+      accion: ~/scripts/perfil_sobremesa.sh
+
+TIPO: Siempre activo — daemon ligero en segundo plano
+
+HERRAMIENTAS A USAR:
+- udev (eventos de hardware: USB, monitores, batería)
+- hyprland events socket (eventos de ventanas en Hyprland)
+- NetworkManager dispatcher (eventos de red)
+- systemd-notify / inotifywait (eventos de archivos)
+- Python o bash para el motor de reglas y dispatcher
+
+MATICES A DECIDIR:
+- ¿Formato de reglas: YAML, TOML o DSL propio?
+- ¿Ejecución secuencial o paralela cuando hay múltiples acciones?
+- ¿Cooldown entre disparos del mismo evento para evitar loops?
+
+ESTADO: Idea pendiente de implementar en Linux

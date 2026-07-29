@@ -1,0 +1,37 @@
+AUTOMATIZACIÓN: Lector de RSS
+Número: 48
+Frecuencia: Cada mañana al encender + bajo demanda
+
+IDEA:
+Sigue blogs, webs y fuentes de noticias que te interesan.
+Cada mañana descarga los artículos nuevos y los tiene listos
+para que una IA los resuma, filtre o analice automáticamente.
+
+QUÉ HACE:
+- Lee fuentes RSS que tú configuras (blogs, noticias, podcasts...)
+- Descarga artículos nuevos cada mañana
+- Guarda el contenido en txt/json para procesarlo con IA
+- La IA (Ollama/opencode) puede: resumir, filtrar por relevancia, extraer ideas clave
+- Muestra en terminal los titulares del día o un resumen generado por IA
+- Popup matutino: "Tienes 12 artículos nuevos — 3 relevantes para ti"
+
+INTEGRACIÓN CON IA:
+- Feed RSS → script descarga → IA resume → tú lees resumen
+- Muy útil combinado con Agente_IA_Diario
+- Puede alimentar otras automatizaciones con información del mundo exterior
+
+FUENTES POSIBLES:
+- Blogs de tecnología / Linux / IA
+- Noticias de tu sector
+- Canales de YouTube (también tienen RSS)
+- Cualquier web con feed RSS
+
+TIPO: Duerme y se despierta — activo unos minutos cada mañana
+
+HERRAMIENTAS A USAR:
+- newsboat o rss-bridge (lector RSS en terminal)
+- Python + feedparser (parsear feeds)
+- Ollama (resumir con IA local)
+- notify-send (popup matutino)
+
+ESTADO: Idea pendiente de implementar en Linux

@@ -1,0 +1,87 @@
+# Manifiesto del Cazador de Medios
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Descarga audio MP3 de YouTube y SoundCloud usando yt-dlp + ffmpeg.
+# El script real (cazador_medios.py) acepta SOLO:
+#   - url  (posicional, opcional en el script pero obligatoria para invocar)
+#   - --playlist / -p  (flag bool: descarga playlist completa)
+#   - --silent  / -s   (flag bool: sin notificacion de escritorio)
+# El formato es siempre MP3 a mejor calidad (hardcodeado, NO es un flag).
+# La carpeta destino sale del config.toml [rutas], NO es un argumento CLI.
+# Por eso NO se modelan argumentos de calidad/formato/destino: no existen.
+
+[meta]
+clave = "cazador_medios"
+nombre_visible = "Cazador de Medios"
+descripcion_corta = "Descarga audio MP3 de YouTube y SoundCloud a la mejor calidad usando yt-dlp"
+categoria = "medios"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "yt"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "descargar"
+descripcion = "Descarga el audio MP3 de una URL individual de YouTube o SoundCloud a la carpeta configurada."
+flags = []
+argumentos_aceptados = ["url"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "descargar_playlist"
+descripcion = "Descarga el audio MP3 de una playlist completa de YouTube o SoundCloud."
+flags = ["--playlist"]
+argumentos_aceptados = ["url"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "descargar_silencioso"
+descripcion = "Descarga el audio MP3 de una URL individual sin emitir notificacion de escritorio."
+flags = ["--silent"]
+argumentos_aceptados = ["url"]
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = true
+requiere_sudo = false
+tiempo_max_segundos = 300
+paths_protegidos = []
+
+[[argumentos]]
+clave = "url"
+descripcion = "URL del video o pista a descargar (YouTube o SoundCloud). Se pasa como primer argumento posicional."
+tipo = "url"
+obligatorio = true
+forma_paso = "posicional"
+
+[dependencias]
+binarios = ["yt-dlp", "ffmpeg", "python3"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/cazador_medios/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere descargar el audio o la musica de un enlace de YouTube o SoundCloud como MP3."
+cuando_no_usar = "Cuando la URL no es de YouTube ni SoundCloud, cuando se quiere el video en si y no solo el audio, o cuando no hay conexion a internet."
+ejemplos_peticion = [
+    "descarga el audio de esta url",
+    "bajame este video como mp3",
+    "https://youtube.com/watch?v=xxxx descargalo",
+    "guarda esta cancion de soundcloud",
+    "baja la playlist entera de este enlace",
+]
+palabras_clave = ["descargar", "audio", "mp3", "musica", "youtube", "soundcloud", "url", "cancion", "playlist"]

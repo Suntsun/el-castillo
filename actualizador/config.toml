@@ -1,0 +1,16 @@
+[general]
+nombre = "actualizador"
+descripcion = "Actualización automática del sistema"
+
+[tareas]
+pacman = true
+aur = true
+
+[red]
+# Host para verificar conexión a internet
+host_ping = "1.1.1.1"
+timeout_ping = 5
+
+[notificaciones]
+# Solo notificar si hubo actualizaciones
+solo_si_hay_cambios = true

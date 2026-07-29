@@ -1,0 +1,10 @@
+[general]
+nombre = "guardian_credenciales"
+descripcion = "Gestor de API keys y credenciales"
+
+[almacenamiento]
+ruta = "~/.config/automatizaciones/apis"
+
+[notificacion]
+duracion = 3000
+severidad = "info"

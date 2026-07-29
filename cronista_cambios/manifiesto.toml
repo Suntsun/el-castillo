@@ -1,0 +1,115 @@
+# Manifiesto del Cronista de Cambios
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Genera changelogs desde el historial de git del repositorio en el directorio
+# de trabajo actual. Tres operaciones expuestas:
+#   - mostrar_terminal: imprime el changelog con color (lectura)
+#   - mostrar_notas: imprime release notes en formato corto (lectura)
+#   - escribir_archivo: crea/actualiza CHANGELOG.md en la raiz del repo (escritura_local)
+#
+# El primer argumento posicional es un RANGO de refs git (ej: v1.0.0..v1.1.0),
+# NO un subcomando estilo git: por eso usa_subcomandos = false.
+
+[meta]
+clave = "cronista_cambios"
+nombre_visible = "Cronista de Cambios"
+descripcion_corta = "Genera changelogs desde el historial de git del repositorio actual, clasificando commits por tipo"
+categoria = "productividad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "changelog"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "mostrar_terminal"
+descripcion = "Imprime en terminal con color el changelog del rango indicado. Si no se da rango, usa desde el ultimo tag hasta HEAD."
+flags = []
+argumentos_aceptados = ["rango", "desde"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "mostrar_notas"
+descripcion = "Imprime release notes en formato corto (sin cabeceras markdown) del rango indicado."
+flags = ["--notas"]
+argumentos_aceptados = ["rango", "desde"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "escribir_archivo"
+descripcion = "Crea o actualiza CHANGELOG.md en la raiz del repositorio git insertando el changelog del rango al inicio."
+flags = ["--archivo"]
+argumentos_aceptados = ["rango", "desde", "incluir_hash", "incluir_autor"]
+requiere_confirmacion = true
+peligrosidad = "escritura_local"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 60
+paths_protegidos = []
+
+[[argumentos]]
+clave = "rango"
+descripcion = "Rango de refs git a analizar, ej: v1.0.0..v1.1.0 o v1.0.0..HEAD. Si se omite, usa desde el ultimo tag hasta HEAD."
+tipo = "cadena"
+obligatorio = false
+regex = "[^\\s]+\\.\\.[^\\s]+"
+forma_paso = "posicional"
+
+[[argumentos]]
+clave = "desde"
+descripcion = "Ref de partida; genera el changelog desde ese ref hasta HEAD."
+tipo = "cadena"
+obligatorio = false
+regex = "[^\\s]+"
+forma_paso = "flag_largo"
+flag_literal = "--desde"
+
+[[argumentos]]
+clave = "incluir_hash"
+descripcion = "Si se activa, anade el hash corto del commit al final de cada linea del CHANGELOG.md."
+tipo = "cadena"
+obligatorio = false
+valor_por_defecto = "false"
+forma_paso = "flag_bool"
+flag_literal = "--hash"
+
+[[argumentos]]
+clave = "incluir_autor"
+descripcion = "Si se activa, anade el nombre del autor del commit a cada linea del CHANGELOG.md."
+tipo = "cadena"
+obligatorio = false
+valor_por_defecto = "false"
+forma_paso = "flag_bool"
+flag_literal = "--autor"
+
+[dependencias]
+binarios = ["git", "python3"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/cronista_cambios/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere generar un changelog o release notes desde los commits de git, o actualizar el CHANGELOG.md del repositorio actual."
+cuando_no_usar = "Cuando el usuario pregunta por errores de las automatizaciones (eso es 'errores') o quiere ver el log de git crudo sin clasificar."
+ejemplos_peticion = [
+    "generame el changelog de este repo",
+    "que cambios hay desde el ultimo tag",
+    "actualiza el CHANGELOG.md",
+    "dame las release notes entre v1.0.0 y v1.1.0",
+    "genera las notas de version desde v2.0.0",
+]
+palabras_clave = ["changelog", "cambios", "commits", "git", "release", "notas", "version", "historial"]

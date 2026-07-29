@@ -1,0 +1,42 @@
+AUTOMATIZACIÓN: Filtro de Email
+Número: 64
+Frecuencia: Siempre activo (revisa email cada X minutos)
+
+IDEA:
+Conectar tu cuenta de Gmail a pc1 para que el sistema
+lea, filtre y organice correos automáticamente antes de que los veas.
+
+CÓMO SE CONECTA GMAIL A PC1:
+- Opción A (recomendada): Gmail API oficial de Google
+  → Creas credenciales en Google Cloud (gratuito)
+  → El script accede con OAuth2 (seguro, sin contraseña)
+- Opción B: IMAP
+  → Activas IMAP en Gmail
+  → El script se conecta como cualquier cliente de correo
+
+QUÉ HACE:
+- Lee correos nuevos cada X minutos
+- Detecta y mueve spam automáticamente
+- Categoriza por remitente, asunto o palabras clave
+- Manda popup si llega correo importante (según reglas tuyas)
+- Guarda resumen diario de correos recibidos
+- Integrable con Agente_IA_Diario para resumir inbox cada mañana
+
+REGLAS CONFIGURABLES:
+  si remitente contiene "newsletter" → mover a carpeta Newsletters
+  si asunto contiene "factura"       → mover a Facturas + popup aviso
+  si remitente desconocido + links   → marcar como sospechoso
+
+TIPO: Siempre activo en modo polling — consume muy poco
+
+HERRAMIENTAS A USAR:
+- Gmail API (Python client)
+- Python para las reglas de filtrado
+- notify-send (alertas correos importantes)
+- Integración con Agente_IA_Diario y Bot_Telegram
+
+MATICES A DECIDIR:
+- ¿Qué cuenta de Gmail conectar?
+- ¿Qué reglas de filtrado quieres?
+
+ESTADO: Idea pendiente de implementar en Linux

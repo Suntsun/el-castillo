@@ -1,0 +1,10 @@
+[Unit]
+Description=Limpieza semanal del sistema
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/limpiador/limpiador.py
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-1
+Environment=XDG_RUNTIME_DIR=/run/user/1000

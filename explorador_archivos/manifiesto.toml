@@ -1,0 +1,114 @@
+# Manifiesto del Explorador de Archivos
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Buscador universal de SOLO LECTURA: archivos, contenido, historial y logs.
+# Usa fd + ripgrep. Si el termino es una ruta existente, la abre con xdg-open.
+# Se modela una operacion por tipo de busqueda; todas requieren el argumento
+# posicional 'termino' y aceptan opcionalmente 'limite'.
+
+[meta]
+clave = "explorador_archivos"
+nombre_visible = "Explorador de Archivos"
+descripcion_corta = "Buscador universal de solo lectura: nombres de archivo, contenido, historial y logs"
+categoria = "productividad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "buscar"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "buscar_general"
+descripcion = "Busca el termino en todas las categorias a la vez: nombres de archivo, contenido, historial y logs."
+flags = []
+argumentos_aceptados = ["termino", "limite"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "buscar_archivos"
+descripcion = "Busca el termino solo en nombres de archivo (usa fd)."
+flags = ["--archivos"]
+argumentos_aceptados = ["termino", "limite"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "buscar_contenido"
+descripcion = "Busca el termino dentro del contenido de los archivos (usa ripgrep)."
+flags = ["--contenido"]
+argumentos_aceptados = ["termino", "limite"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "buscar_historial"
+descripcion = "Busca el termino solo en el historial de terminal."
+flags = ["--historial"]
+argumentos_aceptados = ["termino", "limite"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "buscar_logs"
+descripcion = "Busca el termino solo en los logs de las automatizaciones del Castillo."
+flags = ["--logs"]
+argumentos_aceptados = ["termino", "limite"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 30
+paths_protegidos = []
+
+[[argumentos]]
+clave = "termino"
+descripcion = "Texto a buscar. Puede contener varias palabras separadas por espacios. Sin metacaracteres de shell."
+tipo = "cadena"
+obligatorio = true
+regex = "^[\\w .\\-/]+$"
+forma_paso = "posicional"
+
+[[argumentos]]
+clave = "limite"
+descripcion = "Maximo de resultados por categoria. Si no se indica, usa el valor por defecto de la configuracion."
+tipo = "entero"
+obligatorio = false
+min = 1
+max = 1000
+forma_paso = "flag_largo"
+flag_literal = "--limit"
+
+[dependencias]
+binarios = ["python3", "fd", "rg", "xdg-open"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/explorador_archivos/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere encontrar archivos por nombre, buscar texto dentro de ficheros, rastrear comandos en el historial o localizar mensajes en los logs."
+cuando_no_usar = "Cuando el usuario quiere ver o seguir un log concreto entero, o cuando pregunta especificamente por errores de las automatizaciones (eso es el Cronista de Errores)."
+ejemplos_peticion = [
+    "busca archivos con python en el nombre",
+    "encuentra ficheros que contengan TODO",
+    "busca en los logs error de red",
+    "donde tengo guardado el proyecto castillo",
+    "busca pip en mi historial de terminal",
+]
+palabras_clave = ["buscar", "busca", "encuentra", "archivo", "archivos", "fichero", "contenido", "historial", "logs", "localizar"]

@@ -1,0 +1,33 @@
+[modo]
+nombre = "dev"
+descripcion = "Sesion de desarrollo — Opera, terminal + YouTube, Discord + WhatsApp"
+
+# Pantalla 1: Opera
+[[apps]]
+comando = "opera"
+workspace = 1
+delay = 2
+
+# Pantalla 2: Terminal
+[[apps]]
+comando = "alacritty"
+workspace = 2
+delay = 1
+
+# Pantalla 2: YouTube
+[[apps]]
+comando = "xdg-open https://www.youtube.com"
+workspace = 2
+delay = 2
+
+# Pantalla 3: Discord
+[[apps]]
+comando = "omarchy-launch-webapp https://discord.com/channels/@me"
+workspace = 3
+delay = 1
+
+# Pantalla 3: WhatsApp
+[[apps]]
+comando = "omarchy-launch-webapp https://web.whatsapp.com/"
+workspace = 3
+delay = 0

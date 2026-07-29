@@ -1,0 +1,30 @@
+AUTOMATIZACIÓN: Descargador de YouTube
+Número: 42
+Frecuencia: Bajo demanda (comando en terminal o desde Bot Telegram)
+
+IDEA:
+Le pasas un enlace de YouTube y descarga automáticamente
+el vídeo en MP4 o solo el audio en MP3, en la carpeta correcta.
+
+QUÉ HACE:
+- Comando simple: "yt <enlace>" y elige formato
+- Descarga en MP4 → guarda en ~/Videos/YouTube/
+- Descarga en MP3 → guarda en ~/Música/YouTube/
+- Muestra progreso en terminal y popup al terminar
+- Opción de lista de reproducción completa de golpe
+- Calidad configurable (mejor calidad, ligero, etc.)
+- Integrable con Bot Telegram: le mandas el enlace desde el móvil y descarga en pc1
+
+TIPO: Duerme y se despierta — consume 0 recursos en espera
+
+HERRAMIENTAS A USAR:
+- yt-dlp (descargador potente, actualizado frecuentemente)
+- ffmpeg (convertir a MP3)
+- notify-send (popup al terminar)
+- Integración con Bot_Telegram (opcional)
+
+MATICES A DECIDIR:
+- ¿Calidad por defecto? (mejor disponible / equilibrada / ligera)
+- ¿Subtítulos también?
+
+ESTADO: Idea pendiente de implementar en Linux

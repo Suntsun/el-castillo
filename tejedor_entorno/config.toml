@@ -1,0 +1,11 @@
+[general]
+nombre = "tejedor_entorno"
+descripcion = "Rota el fondo de pantalla cada 2 horas según la hora del día"
+# Poner a true para no mostrar notificación al rotar
+silencioso = false
+# Ruta base de los wallpapers (subcarpetas: manana, dia, tarde, noche)
+ruta_fondos = "~/Escritorio/automatizaciones/tejedor_entorno/wallpapers-tejedor-entorno"
+
+[notificacion]
+duracion = 3000
+severidad = "info"

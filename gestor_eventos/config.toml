@@ -1,0 +1,14 @@
+[general]
+nombre = "gestor_eventos"
+descripcion = "Bus de eventos que escucha cambios del sistema y ejecuta acciones configurables"
+
+[daemon]
+# Intervalo de polling en segundos
+intervalo = 10
+# Fichero de historial de eventos disparados
+historial = "/tmp/gestor_eventos_historial.json"
+# Maximo de entradas en el historial
+max_historial = 100
+
+[notificacion]
+duracion = 5000

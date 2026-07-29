@@ -1,0 +1,29 @@
+AUTOMATIZACIÓN: Bot de Telegram
+Número: 20
+Frecuencia: Siempre activo (servicio en background)
+
+IDEA:
+Un bot de Telegram conectado a pc1 que permite controlarlo
+y recibir notificaciones desde el móvil, desde cualquier lugar.
+
+QUÉ PUEDE HACER:
+- Recibir órdenes por Telegram y ejecutarlas en pc1
+  ej: "apaga el pc", "qué hora es", "ejecuta el limpiador"
+- Mandar alertas automáticas cuando algo ocurre en pc1
+  ej: disco lleno, actualización completada, backup hecho
+- Consultar el estado del sistema desde el móvil
+  ej: "cuánta RAM queda", "qué procesos corren"
+- Servir de puente entre el móvil y las automatizaciones
+
+HERRAMIENTAS A USAR:
+- python-telegram-bot (librería Python)
+- API de Telegram (BotFather para crear el bot)
+- Python para la lógica
+- systemd para que el bot arranque solo con el sistema
+
+MATICES A DECIDIR:
+- ¿Qué comandos acepta el bot?
+- ¿Solo tú puedes usarlo? (sí, por ID de usuario)
+- ¿Qué notificaciones manda automáticamente?
+
+ESTADO: Idea pendiente de implementar en Linux

@@ -1,0 +1,29 @@
+AUTOMATIZACIÓN: Sincronizador pc1 ↔ pc2
+Número: 8
+Frecuencia: A decidir (diaria, por cambios, o manual)
+
+IDEA:
+Sincronizar carpetas entre pc1 (portátil Linux) y pc2 (sobremesa)
+automáticamente por SSH/red local o internet.
+
+QUÉ SINCRONIZA:
+- Carpetas de proyectos
+- Archivos de configuración
+- Documentos importantes
+- Scripts y automatizaciones
+
+HERRAMIENTAS A USAR:
+- rsync (sincronización eficiente por SSH)
+- SSH (conexión segura entre pc1 y pc2)
+- cron o systemd timer
+- inotifywait (detectar cambios en tiempo real)
+
+MATICES A DECIDIR:
+- ¿Qué carpetas exactas sincronizar?
+- ¿Dirección? pc1→pc2 / pc2→pc1 / bidireccional
+- ¿Por WiFi local o por internet (con VPN)?
+- ¿Qué pasa si hay conflictos (mismo archivo editado en los dos)?
+- ¿Sincronización en tiempo real o programada?
+- ¿Qué pasa si un PC está apagado?
+
+ESTADO: Idea avanzada — implementar cuando pc1 y pc2 estén en Linux y con SSH configurado

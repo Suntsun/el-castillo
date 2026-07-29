@@ -1,0 +1,46 @@
+AUTOMATIZACIÓN: Generador de Changelogs
+Número: 67
+Frecuencia: Bajo demanda + al hacer tag/release en git
+
+IDEA:
+Genera automáticamente un CHANGELOG.md bien formateado a partir del
+historial de commits y PRs fusionados. Sin escribir nada a mano,
+sin olvidarse de nada importante.
+
+QUÉ HACE:
+- Lee los commits desde el último tag hasta HEAD (o entre dos tags)
+- Agrupa los cambios por tipo: feat, fix, refactor, breaking, docs...
+- Filtra commits de merge, WIP y ruido de mantenimiento
+- Opcionalmente usa un LLM para mejorar los mensajes poco descriptivos
+- Escribe o actualiza CHANGELOG.md con el formato Keep a Changelog
+- Puede generar también release notes para GitHub/GitLab
+
+EJEMPLO DE USO:
+  generar-changelog                    → desde último tag hasta HEAD
+  generar-changelog v1.2.0..v1.3.0     → entre dos versiones concretas
+  generar-changelog --mejora           → pasa los mensajes por LLM
+  generar-changelog --release-notes    → formato para GitHub Releases
+
+EJEMPLO DE SALIDA:
+  ## [1.3.0] - 2026-05-23
+  ### Nuevas funcionalidades
+  - Añadido soporte para múltiples perfiles de usuario
+  ### Correcciones
+  - Corregido crash al abrir proyectos sin git inicializado
+  ### Cambios internos
+  - Refactorizado el módulo de configuración
+
+TIPO: Duerme y se despierta — se ejecuta bajo demanda o en hook de git
+
+HERRAMIENTAS A USAR:
+- git log con formato personalizado
+- Python o bash para parsear y agrupar commits
+- Ollama / API LLM para mejorar mensajes (opcional)
+- Integración con git hooks (post-tag) para automatización total
+
+MATICES A DECIDIR:
+- ¿Convención de commits requerida (Conventional Commits) o flexible?
+- ¿Actualizar el CHANGELOG existente o generar uno nuevo cada vez?
+- ¿Incluir solo commits del repo actual o también de submódulos?
+
+ESTADO: Idea pendiente de implementar en Linux

@@ -1,0 +1,98 @@
+# Manifiesto del Encadenador Inteligente
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Operaciones expuestas: estado, listar, historial (lectura) y ejecutar (escritura_sistema).
+# Se OMITE intencionadamente el modo 'daemon' (invocacion sin flags): es un bucle
+# infinito que arranca via systemd (encadenador_inteligente.service) y bloquea la
+# terminal; no debe lanzarse desde el Arquitecto.
+#
+# El CLI 'cadena' NO usa subcomandos estilo git: distingue operaciones por flags
+# (--status, --lista, --historial, --ejecutar NOMBRE) parseados con argparse.
+
+[meta]
+clave = "encadenador_inteligente"
+nombre_visible = "Encadenador Inteligente"
+descripcion_corta = "Encadena automatizaciones en pipelines y ejecuta cadenas de pasos al detectar triggers en los logs"
+categoria = "meta"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "cadena"
+tipo = "wrapper_cli"
+usa_subcomandos = false
+
+[[operaciones]]
+nombre = "estado"
+descripcion = "Muestra el estado del daemon (activo/inactivo), numero de cadenas, triggers totales y cooldown configurado."
+flags = ["--status"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "listar"
+descripcion = "Lista todas las cadenas configuradas con sus pasos, triggers, patrones y comandos a ejecutar."
+flags = ["--lista"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "historial"
+descripcion = "Muestra las ultimas 20 ejecuciones de cadenas registradas, con resultado y trigger que las disparo."
+flags = ["--historial"]
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "ejecutar"
+descripcion = "Ejecuta manualmente una cadena completa por nombre, lanzando en orden todos sus pasos (varias automatizaciones del sistema)."
+flags = ["--ejecutar"]
+argumentos_aceptados = ["nombre_cadena"]
+requiere_confirmacion = true
+peligrosidad = "escritura_sistema"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 600
+paths_protegidos = []
+
+[[argumentos]]
+clave = "nombre_cadena"
+descripcion = "Nombre exacto de la cadena a ejecutar, tal como aparece en 'cadena --lista' (ej.: limpieza_completa, post_actualizacion)."
+tipo = "cadena"
+obligatorio = true
+regex = "^[a-z][a-z0-9_]*$"
+forma_paso = "flag_largo"
+flag_literal = "--ejecutar"
+
+[dependencias]
+binarios = ["python3", "notify-send", "systemctl"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/encadenador_inteligente/config.toml",
+]
+servicios_systemd = ["encadenador_inteligente.service"]
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere ver, revisar o lanzar cadenas de automatizaciones encadenadas, o consultar el estado del encadenador."
+cuando_no_usar = "Cuando el usuario solo quiere ejecutar una unica automatizacion suelta (invocala directamente) o arrancar/parar el daemon de fondo (eso es gestion de systemd)."
+ejemplos_peticion = [
+    "que cadenas hay",
+    "ejecuta la cadena de mantenimiento",
+    "estado del encadenador",
+    "lanza la cadena post_actualizacion",
+    "muestrame el historial de cadenas",
+]
+palabras_clave = ["cadena", "cadenas", "encadenador", "pipeline", "trigger", "encadenar", "flujo"]

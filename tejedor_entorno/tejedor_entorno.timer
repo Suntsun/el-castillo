@@ -1,0 +1,15 @@
+[Unit]
+Description=Timer para rotar wallpaper cada 2 horas
+
+[Timer]
+# Refresco poco despues de iniciar sesion (fondo nuevo al arrancar).
+OnStartupSec=1min
+# Disparo en horas pares del reloj (00,02,04...22). Calendario = determinista
+# y re-arma SIEMPRE; evita el estado "elapsed" muerto de los timers monotonicos
+# (OnBootSec/OnUnitActiveSec), que era la causa de que dejara de rotar.
+OnCalendar=*-*-* 00/2:00:00
+# Si la maquina estaba apagada a la hora prevista, ejecuta al volver.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,50 @@
+AUTOMATIZACIÓN: Orquestador Central
+Número: 65
+Frecuencia: Siempre activo (el director de todas las automatizaciones)
+
+IDEA:
+El cerebro del sistema. Coordina cuándo y cómo corren todas
+las automatizaciones, gestiona dependencias entre ellas y se actualiza
+solo cuando añades una nueva. No hay que tocarlo manualmente.
+
+PRINCIPIO CLAVE — AUTODESCUBRIMIENTO:
+En vez de tener una lista fija de automatizaciones, el Orquestador
+escanea la carpeta AUTOMATIZACIONES/ al arrancar.
+Cualquier carpeta nueva con un script válido se registra automáticamente.
+Añades una automatización nueva → el Orquestador la detecta solo.
+
+QUÉ HACE:
+- Escanea AUTOMATIZACIONES/ y registra todos los scripts disponibles
+- Lee el archivo config.txt de cada automatización (horario, dependencias)
+- Decide el orden de ejecución según dependencias
+  ej: Lector_RSS debe correr ANTES que Agente_IA_Diario
+- Evita que dos automatizaciones conflictivas corran a la vez
+- Si una falla, decide si reintenta o pasa a la siguiente
+- Manda todo al Logger_Errores_Global
+- Panel de estado: qué está corriendo, qué terminó, qué falló
+
+ESTRUCTURA QUE LEERÁ DE CADA AUTOMATIZACIÓN:
+  /Limpiador/
+    script.sh       ← el script real
+    idea.txt        ← descripción humana
+    config.txt      ← horario, dependencias, prioridad (lo añadiremos después)
+
+CONFIG.TXT DE EJEMPLO:
+  horario: arranque
+  depende_de: ninguno
+  prioridad: baja
+  reintentos: 3
+
+TIPO: Siempre activo — consume muy poco (solo coordina)
+
+HERRAMIENTAS A USAR:
+- Python para el motor de orquestación
+- systemd para arranque automático
+- Integración con Logger_Errores_Global y Encadenador_Inteligente
+
+NOTA IMPORTANTE:
+El Orquestador es lo último que se implementa, cuando ya hay
+varias automatizaciones funcionando. Primero se construyen las piezas,
+luego el director que las coordina.
+
+ESTADO: Idea avanzada — implementar en fase final del proyecto

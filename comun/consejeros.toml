@@ -1,0 +1,155 @@
+[limpiador]
+nombre = "El Limpiador"
+titulo = "Ingeniero de Mantenimiento"
+imagen = "limpiador.png"
+grupo = "mantenimiento"
+
+[actualizador]
+nombre = "El Actualizador"
+titulo = "Ingeniero de Actualizaciones"
+imagen = "actualizador.png"
+grupo = "mantenimiento"
+
+[guardian_reposo]
+nombre = "El Guardián del Reposo"
+titulo = "Mayordomo del Sistema"
+imagen = "guardian_reposo.png"
+grupo = "mantenimiento"
+
+[monitor_red]
+nombre = "El Monitor de Red"
+titulo = "Explorador de Conexiones"
+imagen = "monitor_red.png"
+grupo = "monitorizacion"
+
+[vigilante_temperatura]
+nombre = "El Vigilante de Temperatura"
+titulo = "Centinela Térmico"
+imagen = "vigilante_temperatura.png"
+grupo = "monitorizacion"
+
+[traductor_terminal]
+nombre = "El Traductor"
+titulo = "Intérprete de Lenguas"
+imagen = "traductor_terminal.png"
+grupo = "herramientas"
+
+[cazador_medios]
+nombre = "El Cazador de Medios"
+titulo = "Rastreador de Contenido"
+imagen = "cazador_medios.png"
+grupo = "herramientas"
+
+[explorador_archivos]
+nombre = "El Explorador"
+titulo = "Buscador Universal"
+imagen = "explorador_archivos.png"
+grupo = "herramientas"
+
+[tejedor_entorno]
+nombre = "El Tejedor"
+titulo = "Artesano del Entorno"
+imagen = "tejedor_entorno.png"
+grupo = "personalizacion"
+
+[guardador_silencio]
+nombre = "El Guardador del Silencio"
+titulo = "Maestro del Modo Zen"
+imagen = "guardador_silencio.png"
+grupo = "herramientas"
+
+[guardian_arranque]
+nombre = "El Guardián del Arranque"
+titulo = "Centinela del Amanecer"
+imagen = "guardian_arranque.png"
+grupo = "monitorizacion"
+
+[cronista_errores]
+nombre = "El Cronista de Errores"
+titulo = "Escriba de las Sombras"
+imagen = "cronista_errores.png"
+grupo = "monitorizacion"
+
+[guardian_sombras]
+nombre = "El Guardian de las Sombras"
+titulo = "Vigia de los Secretos"
+imagen = "guardian_sombras.png"
+grupo = "seguridad"
+
+[guardian_secretos]
+nombre = "El Guardian de los Secretos"
+titulo = "Custodio de la Boveda"
+imagen = "guardian_secretos.png"
+grupo = "seguridad"
+
+[guardian_credenciales]
+nombre = "El Guardian de las Credenciales"
+titulo = "Tesorero del Castillo"
+imagen = "guardian_credenciales.png"
+grupo = "seguridad"
+
+[cronista_informes]
+nombre = "El Cronista de Informes"
+titulo = "Escriba del Reino"
+imagen = "cronista_informes.png"
+grupo = "monitorizacion"
+
+[purificador_datos]
+nombre = "El Purificador de Datos"
+titulo = "Limpiador de Ecos"
+imagen = "purificador_datos.png"
+grupo = "mantenimiento"
+
+[invocador_entorno]
+nombre = "El Invocador del Entorno"
+titulo = "Maestro de Ceremonias"
+imagen = "invocador_entorno.png"
+grupo = "productividad"
+
+[oraculo_errores]
+nombre = "El Oráculo de Errores"
+titulo = "Descifrador de Fallos"
+imagen = "oraculo_errores.png"
+grupo = "herramientas"
+
+[jefe_de_maquinas]
+nombre = "El Jefe de Maquinas"
+titulo = "Senor del Castillo"
+imagen = "jefe_de_maquinas.png"
+grupo = "orquestacion"
+
+[cronista_cambios]
+nombre = "El Cronista de Cambios"
+titulo = "Escriba del Progreso"
+imagen = "cronista_cambios.png"
+grupo = "herramientas"
+
+[encadenador_inteligente]
+nombre = "El Encadenador Inteligente"
+titulo = "Maestro de las Cadenas"
+imagen = "encadenador_inteligente.png"
+grupo = "orquestacion"
+
+[gestor_eventos]
+nombre = "El Gestor de Eventos"
+titulo = "Vigia del Reino"
+imagen = "gestor_eventos.png"
+grupo = "monitorizacion"
+
+[explorador_feeds]
+nombre = "El Explorador de Feeds"
+titulo = "Vigia de las Noticias"
+imagen = "explorador_feeds.png"
+grupo = "herramientas"
+
+[el_arquitecto_del_castillo]
+nombre = "El Arquitecto del Castillo"
+titulo = ""
+imagen = "el_arquitecto_del_castillo.png"
+grupo = "orquestacion"
+
+[heraldo_mensajes]
+nombre = "El Heraldo"
+titulo = "Mensajero del Castillo"
+imagen = "heraldo_mensajes.png"
+grupo = "herramientas"

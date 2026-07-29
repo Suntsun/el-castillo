@@ -1,0 +1,31 @@
+AUTOMATIZACIÓN: Agente IA Diario
+Número: 9
+Frecuencia: Cada mañana al encender pc1 (o a hora fija, ej. 8:00 AM)
+
+IDEA:
+Al arrancar pc1, una IA local (Ollama) se ejecuta automáticamente
+y realiza tareas inteligentes sin intervención humana.
+pc1 "piensa" solo cada mañana.
+
+QUÉ PUEDE HACER:
+- Resumir emails importantes recibidos
+- Mostrar el tiempo meteorológico del día
+- Listar tareas pendientes del día
+- Ejecutar scripts diferentes según el día de la semana
+- Generar un briefing diario en txt o notificación
+- Analizar logs de otras automatizaciones y detectar problemas
+
+HERRAMIENTAS A USAR:
+- Ollama (IA local, modelos como llama3 o mistral)
+- opencode (asistente IA en terminal)
+- Python para orquestar las tareas
+- cron o systemd para el arranque automático
+- notify-send para notificaciones de escritorio
+- APIs externas (tiempo, email, etc.)
+
+MATICES A DECIDIR:
+- ¿Qué tareas concretas hace cada mañana?
+- ¿Notificación emergente o txt guardado?
+- ¿Qué modelo de IA usar?
+
+ESTADO: Idea pendiente de implementar en Linux

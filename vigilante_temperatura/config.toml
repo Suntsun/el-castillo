@@ -1,0 +1,17 @@
+[general]
+nombre = "vigilante_temperatura"
+descripcion = "Monitorización continua de temperaturas del sistema"
+intervalo_segundos = 60
+
+[umbrales]
+aviso = 75
+critico = 90
+
+[cooldown]
+# No repetir notificación del mismo nivel hasta pasados estos segundos
+segundos = 300
+
+[sensores]
+# Nombres de chip a monitorizar (de sensors -j)
+# Vacío = monitorizar todos
+chips = ["k10temp-pci-00c3", "nvme-pci-0100"]

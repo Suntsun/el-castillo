@@ -1,0 +1,28 @@
+AUTOMATIZACIÓN: Logger de Errores Global
+Número: 32
+Frecuencia: Siempre activo (recoge errores de todas las automatizaciones)
+
+IDEA:
+Centraliza todos los errores de todas las automatizaciones en un único archivo.
+Si algo falla en cualquier script, aquí queda registrado y te manda popup.
+Es el "panel de control" de salud de tus automatizaciones.
+
+QUÉ HACE:
+- Cada automatización le reporta aquí si algo salió mal
+- Guarda fecha, hora, qué automatización falló y el error
+- Si hay un error → popup inmediato: "Falló el Limpiador: no había espacio"
+- Resumen semanal incluido en el Generador de Informes
+- Archivo de log centralizado en ~/logs/errores.log
+
+TIPO: Siempre activo pero consume recursos mínimos (solo escucha reportes)
+
+HERRAMIENTAS A USAR:
+- Python o bash
+- notify-send (popup de alerta)
+- systemd journal para centralizar logs
+- Integración con todas las demás automatizaciones
+
+NOTA: Esta automatización se implementa junto con las demás,
+no de forma aislada. Es la base de monitoreo del sistema.
+
+ESTADO: Idea pendiente de implementar en Linux

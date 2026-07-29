@@ -1,0 +1,9 @@
+[modo]
+nombre = "mi_modo"
+descripcion = "Describe tu modo aqui"
+
+# Anade apps asi:
+# [[apps]]
+# comando = "nombre_app"
+# workspace = 1
+# delay = 0

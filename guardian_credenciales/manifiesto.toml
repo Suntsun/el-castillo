@@ -1,0 +1,130 @@
+# Manifiesto del Guardian de Credenciales
+# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+#
+# Gestor de API keys. El primer argumento del CLI ('comando') es un subcomando
+# especial (lista, anadir, borrar, check) o, si no coincide, el NOMBRE de una
+# API a copiar al portapapeles. Modelamos ese caso como subcomando_por_defecto
+# "lista" (operacion segura de lectura) y exponemos las operaciones explicitas.
+#
+# CUIDADO:
+# - 'anadir' pide la key por stdin (getpass) -> interactivo, bloquea terminal.
+# - 'borrar' pide confirmacion por stdin antes de unlink -> interactivo,
+#   destructivo, bloquea terminal.
+# - 'ver_key' (--ver) muestra la key en CLARO: operacion sensible, se exige
+#   confirmacion explicita.
+# - 'lista' y la copia al portapapeles NUNCA muestran la key completa
+#   (van enmascaradas), por eso son de lectura.
+
+[meta]
+clave = "guardian_credenciales"
+nombre_visible = "Guardian de Credenciales"
+descripcion_corta = "Gestor de API keys: lista, anade, borra y copia credenciales de forma segura"
+categoria = "seguridad"
+version_manifiesto = "1.0.0"
+
+[invocacion]
+comando_base = "api"
+tipo = "wrapper_cli"
+usa_subcomandos = true
+subcomando_por_defecto = "lista"
+
+[[operaciones]]
+nombre = "listar"
+descripcion = "Lista los nombres de las API keys guardadas con su descripcion y la key enmascarada. No revela valores en claro."
+flags = []
+subcomando = "lista"
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "verificar"
+descripcion = "Comprueba contra su endpoint las APIs que tengan verificacion configurada y reporta cuales responden."
+flags = []
+subcomando = "check"
+argumentos_aceptados = []
+requiere_confirmacion = false
+peligrosidad = "red_saliente"
+bloquea_terminal = false
+salida_esperada = "texto_largo"
+
+[[operaciones]]
+nombre = "copiar"
+descripcion = "Copia al portapapeles (wl-copy) la key de la API indicada por nombre. La key se muestra enmascarada en pantalla."
+flags = []
+subcomando = "copiar"
+argumentos_aceptados = ["nombre_api"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = false
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "ver_key"
+descripcion = "Muestra en terminal la API key EN CLARO. Solo manual: el Arquitecto no la invoca para no volcar secretos automaticamente."
+flags = ["--ver"]
+subcomando = "copiar"
+argumentos_aceptados = ["nombre_api"]
+requiere_confirmacion = false
+peligrosidad = "lectura"
+bloquea_terminal = true
+salida_esperada = "texto_corto"
+
+[[operaciones]]
+nombre = "anadir"
+descripcion = "Anade una nueva API key. Pide la key y la descripcion de forma interactiva por stdin (getpass). Requiere TTY."
+flags = []
+subcomando = "anadir"
+argumentos_aceptados = ["nombre_api"]
+requiere_confirmacion = false
+peligrosidad = "escritura_local"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[[operaciones]]
+nombre = "borrar"
+descripcion = "Elimina del almacen la API key indicada. Pide confirmacion interactiva por stdin antes de borrar el fichero."
+flags = []
+subcomando = "borrar"
+argumentos_aceptados = ["nombre_api"]
+requiere_confirmacion = true
+peligrosidad = "destructiva"
+bloquea_terminal = true
+salida_esperada = "interactivo"
+
+[seguridad]
+permite_argumentos_libres = false
+requiere_red = false
+requiere_sudo = false
+tiempo_max_segundos = 30
+paths_protegidos = []
+
+[[argumentos]]
+clave = "nombre_api"
+descripcion = "Nombre de la API key sobre la que actuar (copiar, ver, anadir o borrar). Se usa como nombre de fichero del almacen."
+tipo = "cadena"
+obligatorio = true
+regex = "^[A-Za-z0-9_]+$"
+forma_paso = "posicional"
+
+[dependencias]
+binarios = ["python3", "wl-copy", "notify-send"]
+paquetes_python = []
+ficheros_config = [
+    "/home/sun/Escritorio/automatizaciones/guardian_credenciales/config.toml",
+]
+servicios_systemd = []
+
+[contexto_llm]
+cuando_usar = "Cuando el usuario quiere consultar, listar, anadir, borrar o copiar sus API keys y credenciales guardadas."
+cuando_no_usar = "Cuando el usuario pide contrasenas del sistema, llaveros del SO, o secretos que no sean API keys gestionadas por este almacen."
+ejemplos_peticion = [
+    "lista mis api keys",
+    "que claves tengo guardadas",
+    "borra la clave de openai",
+    "copia al portapapeles la api key de telegram",
+    "comprueba si mis api keys siguen activas",
+]
+palabras_clave = ["api", "apis", "key", "keys", "clave", "claves", "credencial", "credenciales", "token", "secreto"]
