@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/castillo.png" width="120" alt="" />
+</p>
+
 # El Castillo
 
 **Suite de 26 automatizaciones Linux gobernadas por un orquestador conversacional donde el LLM razona pero no ejecuta.**
