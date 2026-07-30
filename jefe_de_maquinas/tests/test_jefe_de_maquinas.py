@@ -126,7 +126,7 @@ class TestBuscarWrapper(unittest.TestCase):
             bin_dir = Path(tmpdir)
             wrapper = bin_dir / "limpiador"
             wrapper.write_text(
-                "#!/bin/bash\nexec python3 /home/sun/Escritorio/automatizaciones/limpiador/limpiador.py\n"
+                "#!/bin/bash\nexec python3 /home/usuario/Escritorio/automatizaciones/limpiador/limpiador.py\n"
             )
 
             with patch("jefe_de_maquinas.RUTA_BIN", bin_dir):

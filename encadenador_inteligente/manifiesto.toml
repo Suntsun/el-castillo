@@ -1,5 +1,5 @@
 # Manifiesto del Encadenador Inteligente
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: estado, listar, historial (lectura) y ejecutar (escritura_sistema).
 # Se OMITE intencionadamente el modo 'daemon' (invocacion sin flags): es un bucle
@@ -81,7 +81,7 @@ flag_literal = "--ejecutar"
 binarios = ["python3", "notify-send", "systemctl"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/encadenador_inteligente/config.toml",
+    "~/Escritorio/automatizaciones/encadenador_inteligente/config.toml",
 ]
 servicios_systemd = ["encadenador_inteligente.service"]
 

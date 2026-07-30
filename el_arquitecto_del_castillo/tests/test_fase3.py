@@ -218,11 +218,11 @@ class TestSeguridad(unittest.TestCase):
         op = _op_escritura(args=("ruta",))
         man = _manifiesto(
             operaciones=(op,), argumentos=(arg,),
-            paths_protegidos=("/home/sun/protegido",),
+            paths_protegidos=("/home/usuario/protegido",),
         )
         inv = {
             "clave_automatizacion": "eco_test", "nombre_operacion": "borrar",
-            "argumentos": {"ruta": "/home/sun/protegido/datos.db"},
+            "argumentos": {"ruta": "/home/usuario/protegido/datos.db"},
             "peligrosidad_efectiva": "escritura_local",
             "requiere_confirmacion": True, "bloquea_terminal": False,
         }

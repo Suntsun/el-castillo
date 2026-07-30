@@ -102,7 +102,7 @@ Versión: 1.0.0
 """
 
 # ── Configuración ────────────────────────────────────────────────
-RUTA_BASE = "/home/sun/Escritorio/automatizaciones"
+RUTA_BASE = "~/Escritorio/automatizaciones"
 RUTA_LOGS = f"{RUTA_BASE}/logs"
 NOMBRE_LOG = "nombre_script.log"
 

@@ -1,5 +1,5 @@
 # Manifiesto del Gestor de Eventos
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # El comando real usa flags de argparse (--status, --reglas, --historial,
 # --test REGLA), NO subcomandos estilo git. Por eso usa_subcomandos = false.
@@ -84,7 +84,7 @@ flag_literal = "--test"
 binarios = ["python3", "hyprctl", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/gestor_eventos/config.toml",
+    "~/Escritorio/automatizaciones/gestor_eventos/config.toml",
 ]
 servicios_systemd = []
 

@@ -16,7 +16,7 @@ cooldown = 300
 
 [historial]
 # Fichero donde se guardan las ejecuciones pasadas
-ruta = "/home/sun/Escritorio/automatizaciones/logs/encadenador_historial.json"
+ruta = "~/Escritorio/automatizaciones/logs/encadenador_historial.json"
 # Maximo de entradas en el historial
 max_entradas = 200
 

@@ -1,5 +1,5 @@
 # Manifiesto del Traductor de Terminal
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operacion expuesta: traducir (texto directo como argumento posicional).
 # Se OMITEN intencionadamente:
@@ -61,7 +61,7 @@ flag_literal = "--to"
 binarios = ["trans", "python3"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/traductor_terminal/config.toml",
+    "~/Escritorio/automatizaciones/traductor_terminal/config.toml",
 ]
 servicios_systemd = []
 

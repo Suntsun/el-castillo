@@ -97,7 +97,7 @@ servicios_systemd = []
 cuando_usar = "Cuando el usuario quiere entender, analizar o resumir codigo o un proyecto, o buscar donde esta algo en el codigo."
 cuando_no_usar = "Cuando pide MODIFICAR, crear o refactorizar codigo (eso es delegar_opencode), o para errores concretos (usa explicar/oraculo_errores)."
 ejemplos_peticion = [
-    "explicame este archivo /home/sun/proyecto/main.py",
+    "explicame este archivo ~/proyecto/main.py",
     "analiza el codigo de este fichero",
     "resume de que va este proyecto",
     "donde se valida el login en este repo",

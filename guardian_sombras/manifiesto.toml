@@ -1,5 +1,5 @@
 # Manifiesto del Guardian de las Sombras
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Solo se exponen las operaciones de SOLO LECTURA (escaner que analiza y
 # reporta). Se OMITEN intencionadamente las operaciones que modifican el
@@ -84,7 +84,7 @@ paths_protegidos = []
 binarios = ["python3", "git", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/guardian_sombras/config.toml",
+    "~/Escritorio/automatizaciones/guardian_sombras/config.toml",
 ]
 servicios_systemd = []
 

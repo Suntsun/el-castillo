@@ -1,5 +1,5 @@
 # Manifiesto del Cazador de Medios
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Descarga audio MP3 de YouTube y SoundCloud usando yt-dlp + ffmpeg.
 # El script real (cazador_medios.py) acepta SOLO:
@@ -70,7 +70,7 @@ forma_paso = "posicional"
 binarios = ["yt-dlp", "ffmpeg", "python3"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/cazador_medios/config.toml",
+    "~/Escritorio/automatizaciones/cazador_medios/config.toml",
 ]
 servicios_systemd = []
 

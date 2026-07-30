@@ -1,5 +1,5 @@
 # Manifiesto del Guardian de Secretos
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: estado, abrir, editar, cifrar, descifrar.
 # IMPORTANTE: todas las operaciones salvo 'estado' piden la contrasena maestra
@@ -82,7 +82,7 @@ requiere_red = false
 requiere_sudo = false
 tiempo_max_segundos = 120
 paths_protegidos = [
-    "/home/sun/.config/automatizaciones/boveda",
+    "~/.config/automatizaciones/boveda",
 ]
 
 [[argumentos]]
@@ -105,7 +105,7 @@ forma_paso = "posicional"
 binarios = ["gpg", "shred"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/guardian_secretos/config.toml",
+    "~/Escritorio/automatizaciones/guardian_secretos/config.toml",
 ]
 servicios_systemd = []
 

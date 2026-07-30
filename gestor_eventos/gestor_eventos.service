@@ -4,7 +4,7 @@ After=default.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/gestor_eventos/gestor_eventos.py
+ExecStart=/usr/bin/python3 %h/Escritorio/automatizaciones/gestor_eventos/gestor_eventos.py
 Restart=on-failure
 RestartSec=10
 Environment=DISPLAY=:0

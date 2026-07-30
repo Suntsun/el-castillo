@@ -392,7 +392,7 @@ def ejecutar_cadena_completa(cadena: dict) -> list[dict]:
 
 def cargar_historial(ruta: str | Path) -> list[dict]:
     """Carga el historial de ejecuciones."""
-    ruta = Path(ruta)
+    ruta = Path(ruta).expanduser()
     if not ruta.exists():
         return []
     try:
@@ -409,7 +409,7 @@ def guardar_historial(
     max_entradas: int = 200,
 ):
     """Guarda el historial truncado al maximo de entradas."""
-    ruta = Path(ruta)
+    ruta = Path(ruta).expanduser()
     ruta.parent.mkdir(parents=True, exist_ok=True)
 
     # Mantener solo las ultimas entradas

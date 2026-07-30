@@ -1,5 +1,5 @@
 # Manifiesto del Cronista de Informes
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: mostrar_ultimo, mostrar_semana, listar, generar.
 # El script tambien corre por timer (cronista_informes.timer, dom 21:00) que
@@ -77,7 +77,7 @@ flag_literal = "--semana"
 binarios = ["python3", "notify-send", "systemctl"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/cronista_informes/config.toml",
+    "~/Escritorio/automatizaciones/cronista_informes/config.toml",
 ]
 servicios_systemd = []
 

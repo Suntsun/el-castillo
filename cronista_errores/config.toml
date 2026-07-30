@@ -12,7 +12,7 @@ fichero_posiciones = "/tmp/cronista_errores_posiciones.json"
 
 [log_global]
 # Ruta del log centralizado de errores (separado del log propio del cronista)
-ruta = "/home/sun/Escritorio/automatizaciones/logs/errores_global.log"
+ruta = "~/Escritorio/automatizaciones/logs/errores_global.log"
 # Máximo de bytes del log global antes de archivar (10 MB)
 max_bytes = 10485760
 

@@ -481,7 +481,7 @@ el_arquitecto_del_castillo/docs/arquitectura.md  # P2 — arquitectura actual do
 # Ejecutar suite completa (verifica el estado) — debe dar 304/304 OK (1 skip)
 # (Los tests de integración LLM en vivo son no deterministas: si falla
 #  test_fase1.test_opencode_envia_y_recibe, reintentar — no es regresión.)
-cd /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo
+cd ~/Escritorio/automatizaciones/el_arquitecto_del_castillo
 python3 -m unittest discover -v
 
 # arqui arranca SOLO el camino gobernado (cerebro OpenCode):
@@ -494,7 +494,7 @@ printf 'que errores hay\nsalir\n' | python3 \
   el_arquitecto_del_castillo/el_arquitecto_del_castillo.py --dry-run
 
 # Ver el manifiesto piloto
-cat /home/sun/Escritorio/automatizaciones/cronista_errores/manifiesto.toml
+cat ~/Escritorio/automatizaciones/cronista_errores/manifiesto.toml
 
 # Verificar OpenCode disponible
 opencode --version

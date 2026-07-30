@@ -222,7 +222,7 @@ class TestContarEspecificos(unittest.TestCase):
 
         ruta = self.ruta_logs / "cazador_medios.log"
         ruta.write_text(
-            "2026-05-26 20:28:24,510 | INFO | cazador_medios | Descarga completada en /home/sun/Musica\n",
+            "2026-05-26 20:28:24,510 | INFO | cazador_medios | Descarga completada en /home/usuario/Musica\n",
             encoding="utf-8",
         )
 

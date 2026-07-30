@@ -5,5 +5,5 @@ descripcion = "Despues de limpiar, buscar duplicados"
 [[pasos]]
 trigger = "limpiador"
 patron = "Limpieza completada"
-ejecutar = "python3 /home/sun/Escritorio/automatizaciones/purificador_datos/purificador_datos.py --informe"
+ejecutar = "python3 $HOME/Escritorio/automatizaciones/purificador_datos/purificador_datos.py --informe"
 delay = 5

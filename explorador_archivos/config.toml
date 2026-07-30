@@ -10,7 +10,7 @@ excluir = [".cache", "node_modules", ".git", "__pycache__", ".venv", "venv", ".l
 # Directorio base de búsqueda para archivos y contenido
 directorio_base = "~"
 # Directorio de logs de automatizaciones
-directorio_logs = "/home/sun/Escritorio/automatizaciones/logs"
+directorio_logs = "~/Escritorio/automatizaciones/logs"
 # Fichero de historial de terminal
 historial = "~/.bash_history"
 # Timeout en segundos para cada búsqueda individual

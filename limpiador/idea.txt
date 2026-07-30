@@ -30,8 +30,8 @@ CONFIGURACIÓN (config.toml):
 - Rutas personalizables
 
 EJECUCIÓN MANUAL:
-  python3 /home/sun/Escritorio/automatizaciones/limpiador/limpiador.py
-  python3 /home/sun/Escritorio/automatizaciones/limpiador/limpiador.py --dry-run
+  python3 ~/Escritorio/automatizaciones/limpiador/limpiador.py
+  python3 ~/Escritorio/automatizaciones/limpiador/limpiador.py --dry-run
 
 ACTIVAR TIMER SYSTEMD:
   cp limpiador.service limpiador.timer ~/.config/systemd/user/

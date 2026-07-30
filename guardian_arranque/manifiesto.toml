@@ -1,5 +1,5 @@
 # Manifiesto del Guardian del Arranque
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Checklist de SOLO LECTURA del estado del sistema tras el arranque:
 # internet, disco, temperatura CPU, timers systemd, errores recientes y
@@ -63,7 +63,7 @@ paths_protegidos = []
 binarios = ["python3", "ping", "systemctl", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/guardian_arranque/config.toml",
+    "~/Escritorio/automatizaciones/guardian_arranque/config.toml",
 ]
 servicios_systemd = []
 

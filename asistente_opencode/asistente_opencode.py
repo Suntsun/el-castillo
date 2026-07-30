@@ -19,7 +19,8 @@ Todas las acciones usan el agente OpenCode restringido `arquitecto-lectura`
 """
 
 # ── Configuración ────────────────────────────────────────────────
-RUTA_BASE = "/home/sun/Escritorio/automatizaciones"
+from pathlib import Path as _Path
+RUTA_BASE = str(_Path(__file__).resolve().parent.parent)
 RUTA_LOGS = f"{RUTA_BASE}/logs"
 NOMBRE_LOG = "asistente_opencode.log"
 

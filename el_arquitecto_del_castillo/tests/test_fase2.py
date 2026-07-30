@@ -39,7 +39,7 @@ from arquitecto.cerebro import (  # noqa: E402
 )
 
 
-RUTA_BASE = Path("/home/sun/Escritorio/automatizaciones")
+RUTA_BASE = Path.home() / "Escritorio/automatizaciones"
 RUTA_OPENCODE_PY = RUTA_BASE / "comun" / "opencode.py"
 RUTA_CEREBRO_PY = RUTA_BASE / "el_arquitecto_del_castillo" / "arquitecto" / "cerebro.py"
 

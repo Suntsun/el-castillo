@@ -1,5 +1,5 @@
 # Manifiesto del Jefe de Maquinas
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # El comando base 'castillo' usa FLAGS, no subcomandos.
 # Operaciones expuestas de LECTURA: dashboard (sin flags, default),
@@ -148,7 +148,7 @@ flag_literal = "--arrancar"
 binarios = ["python3", "systemctl", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/jefe_de_maquinas/config.toml",
+    "~/Escritorio/automatizaciones/jefe_de_maquinas/config.toml",
 ]
 servicios_systemd = []
 

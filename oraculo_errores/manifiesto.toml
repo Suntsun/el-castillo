@@ -1,5 +1,5 @@
 # Manifiesto del Oraculo de Errores
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # El script 'explicar' obtiene el texto del error con esta prioridad:
 #   1. stdin (pipe)  2. ruta de fichero (argumento posicional)  3. portapapeles.
@@ -60,7 +60,7 @@ forma_paso = "posicional"
 binarios = ["python3", "wl-paste", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/oraculo_errores/config.toml",
+    "~/Escritorio/automatizaciones/oraculo_errores/config.toml",
 ]
 servicios_systemd = ["ollama.service"]
 

@@ -486,10 +486,10 @@ def main():
 
     termino = " ".join(args.termino)
     directorio = str(Path(cfg_busq.get("directorio_base", "~")).expanduser())
-    directorio_logs = cfg_busq.get(
+    directorio_logs = str(Path(cfg_busq.get(
         "directorio_logs",
-        "/home/sun/Escritorio/automatizaciones/logs",
-    )
+        "~/Escritorio/automatizaciones/logs",
+    )).expanduser())
     historial = cfg_busq.get("historial", "~/.bash_history")
     excluir = cfg_busq.get("excluir", [
         ".cache", "node_modules", ".git", "__pycache__", ".venv", "venv",

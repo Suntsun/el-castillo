@@ -560,7 +560,7 @@ class TestSaneamientoArgumentos(unittest.TestCase):
         self.assertFalse(ok)
 
     def test_dotdot_rechazado(self):
-        for arg in ("../x", "a/../b", "~/repos/../..", "/home/sun/.."):
+        for arg in ("../x", "a/../b", "~/repos/../..", "/home/usuario/.."):
             ok, _, _ = comandos.validar_forma_comando("cat", [arg])
             self.assertFalse(ok, f"'..' en {arg!r} deberia rechazarse")
 

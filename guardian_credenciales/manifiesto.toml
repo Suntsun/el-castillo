@@ -1,5 +1,5 @@
 # Manifiesto del Guardian de Credenciales
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Gestor de API keys. El primer argumento del CLI ('comando') es un subcomando
 # especial (lista, anadir, borrar, check) o, si no coincide, el NOMBRE de una
@@ -113,7 +113,7 @@ forma_paso = "posicional"
 binarios = ["python3", "wl-copy", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/guardian_credenciales/config.toml",
+    "~/Escritorio/automatizaciones/guardian_credenciales/config.toml",
 ]
 servicios_systemd = []
 

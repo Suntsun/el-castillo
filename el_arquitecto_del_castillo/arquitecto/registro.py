@@ -501,6 +501,7 @@ def _construir_manifiesto(datos: dict[str, Any], ruta: Path) -> Manifiesto:
         raise ManifiestoInvalidoError(
             "seguridad.paths_protegidos debe ser lista de strings"
         )
+    paths_prot_raw = [str(Path(p).expanduser()) for p in paths_prot_raw]
     for p in paths_prot_raw:
         if not p.startswith("/"):
             raise ManifiestoInvalidoError(

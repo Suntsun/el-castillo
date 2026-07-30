@@ -1,5 +1,5 @@
 # Manifiesto del Guardián del Reposo
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: apagar, reiniciar, suspender, cancelar, estado.
 # Se OMITE intencionadamente el subcomando 'menu' del script real, porque abre
@@ -96,7 +96,7 @@ forma_paso = "posicional"
 binarios = ["systemctl", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/guardian_reposo/config.toml",
+    "~/Escritorio/automatizaciones/guardian_reposo/config.toml",
 ]
 servicios_systemd = []
 

@@ -131,9 +131,9 @@ KeyError: 'key'"""
         self.assertIn("not a git repository", info["mensaje"])
 
     def test_extrae_archivo_linea_python(self):
-        texto = 'File "/home/sun/test.py", line 99, in foo\n    bar()\nNameError: name \'bar\' is not defined'
+        texto = 'File "/home/usuario/test.py", line 99, in foo\n    bar()\nNameError: name \'bar\' is not defined'
         info = extraer_info(texto, "Python")
-        self.assertEqual(info["archivo"], "/home/sun/test.py")
+        self.assertEqual(info["archivo"], "/home/usuario/test.py")
         self.assertEqual(info["linea"], "99")
 
 

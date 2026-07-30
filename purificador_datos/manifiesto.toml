@@ -1,5 +1,5 @@
 # Manifiesto del Purificador de Datos
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: escanear, generar_informe, borrar_interactivo.
 # La operacion 'borrar_interactivo' tiene bloquea_terminal=true porque
@@ -69,7 +69,7 @@ flag_literal = "--min"
 binarios = ["python3", "notify-send", "xdg-open"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/purificador_datos/config.toml",
+    "~/Escritorio/automatizaciones/purificador_datos/config.toml",
 ]
 servicios_systemd = []
 

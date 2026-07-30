@@ -1,5 +1,5 @@
 # Manifiesto del Explorador de Feeds
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: listar_titulares, leer_articulo, listar_fuentes,
 # actualizar, anadir_fuente.
@@ -75,7 +75,7 @@ requiere_red = true
 requiere_sudo = false
 tiempo_max_segundos = 120
 paths_protegidos = [
-    "/home/sun/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
+    "~/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
 ]
 
 [[argumentos]]
@@ -100,8 +100,8 @@ flag_literal = "--anadir"
 binarios = ["python3", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/explorador_feeds/config.toml",
-    "/home/sun/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
+    "~/Escritorio/automatizaciones/explorador_feeds/config.toml",
+    "~/Escritorio/automatizaciones/explorador_feeds/fuentes.toml",
 ]
 servicios_systemd = ["explorador_feeds.timer"]
 

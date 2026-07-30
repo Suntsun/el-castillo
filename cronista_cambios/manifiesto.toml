@@ -1,5 +1,5 @@
 # Manifiesto del Cronista de Cambios
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Genera changelogs desde el historial de git del repositorio en el directorio
 # de trabajo actual. Tres operaciones expuestas:
@@ -98,7 +98,7 @@ flag_literal = "--autor"
 binarios = ["git", "python3"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/cronista_cambios/config.toml",
+    "~/Escritorio/automatizaciones/cronista_cambios/config.toml",
 ]
 servicios_systemd = []
 

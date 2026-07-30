@@ -5,5 +5,5 @@ descripcion = "Despues de actualizar, comprobar estado del arranque"
 [[pasos]]
 trigger = "actualizador"
 patron = "Actualizacion completada"
-ejecutar = "python3 /home/sun/Escritorio/automatizaciones/guardian_arranque/guardian_arranque.py --silencioso"
+ejecutar = "python3 $HOME/Escritorio/automatizaciones/guardian_arranque/guardian_arranque.py --silencioso"
 delay = 10

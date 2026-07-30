@@ -71,7 +71,7 @@ Cómo se ejecuta el comando real desde shell.
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|---|---|
-| `comando_base` | string | sí | Comando absoluto o presente en `$PATH`. Ej.: `"errores"`, `"/home/sun/.local/bin/castillo"`. |
+| `comando_base` | string | sí | Comando absoluto o presente en `$PATH`. Ej.: `"errores"`, `"~/.local/bin/castillo"`. |
 | `tipo` | string (enum) | sí | `wrapper_cli` (script en `~/.local/bin/`), `script_directo` (ruta a `.py`), o `comando_sistema` (binario instalado). |
 | `usa_subcomandos` | bool | sí | `true` si el primer argumento es un subcomando (estilo git). |
 | `subcomando_por_defecto` | string | si `usa_subcomandos = true` | Subcomando implícito cuando no se pasa ninguno. |
@@ -269,7 +269,7 @@ palabras_clave = ["eco", "hola"]
 ## Ejemplo completo de referencia
 
 Ver el manifiesto real de `cronista_errores`:
-`/home/sun/Escritorio/automatizaciones/cronista_errores/manifiesto.toml`.
+`~/Escritorio/automatizaciones/cronista_errores/manifiesto.toml`.
 
 Es el primer manifiesto piloto y cubre todos los campos relevantes con
 valores reales del comportamiento actual de la automatización.

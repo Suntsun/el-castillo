@@ -1,5 +1,5 @@
 # Manifiesto del Explorador de Archivos
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Buscador universal de SOLO LECTURA: archivos, contenido, historial y logs.
 # Usa fd + ripgrep. Si el termino es una ruta existente, la abre con xdg-open.
@@ -97,7 +97,7 @@ flag_literal = "--limit"
 binarios = ["python3", "fd", "rg", "xdg-open"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/explorador_archivos/config.toml",
+    "~/Escritorio/automatizaciones/explorador_archivos/config.toml",
 ]
 servicios_systemd = []
 

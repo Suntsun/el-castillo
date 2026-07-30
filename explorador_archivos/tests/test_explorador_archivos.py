@@ -52,12 +52,12 @@ class TestBuscarArchivos(TestCase):
     def test_busqueda_exitosa(self, mock_run):
         mock_run.return_value = MagicMock(
             returncode=0,
-            stdout="/home/sun/test.py\n/home/sun/docs/test.txt\n",
+            stdout="/home/usuario/test.py\n/home/usuario/docs/test.txt\n",
             stderr="",
         )
-        resultados = buscar_archivos("test", "/home/sun", [".cache"], 10, 15)
+        resultados = buscar_archivos("test", "/home/usuario", [".cache"], 10, 15)
         self.assertEqual(len(resultados), 2)
-        self.assertIn("/home/sun/test.py", resultados)
+        self.assertIn("/home/usuario/test.py", resultados)
         mock_run.assert_called_once()
         # Verificar que --exclude .cache está en los argumentos
         args_cmd = mock_run.call_args[0][0]
@@ -71,35 +71,35 @@ class TestBuscarArchivos(TestCase):
             stdout="",
             stderr="",
         )
-        resultados = buscar_archivos("inexistente", "/home/sun", [], 10, 15)
+        resultados = buscar_archivos("inexistente", "/home/usuario", [], 10, 15)
         self.assertEqual(resultados, [])
 
     @patch("explorador_archivos.explorador_archivos.subprocess.run")
     def test_busqueda_timeout(self, mock_run):
         mock_run.side_effect = subprocess.TimeoutExpired(cmd="fd", timeout=15)
-        resultados = buscar_archivos("test", "/home/sun", [], 10, 15)
+        resultados = buscar_archivos("test", "/home/usuario", [], 10, 15)
         self.assertEqual(resultados, [])
 
     @patch("explorador_archivos.explorador_archivos.subprocess.run")
     def test_busqueda_con_limite(self, mock_run):
-        lineas = "\n".join([f"/home/sun/file{i}.txt" for i in range(20)])
+        lineas = "\n".join([f"/home/usuario/file{i}.txt" for i in range(20)])
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout=lineas,
             stderr="",
         )
-        resultados = buscar_archivos("file", "/home/sun", [], 5, 15)
+        resultados = buscar_archivos("file", "/home/usuario", [], 5, 15)
         self.assertEqual(len(resultados), 5)
 
     @patch("explorador_archivos.explorador_archivos.subprocess.run")
     def test_busqueda_sin_limite(self, mock_run):
-        lineas = "\n".join([f"/home/sun/file{i}.txt" for i in range(20)])
+        lineas = "\n".join([f"/home/usuario/file{i}.txt" for i in range(20)])
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout=lineas,
             stderr="",
         )
-        resultados = buscar_archivos("file", "/home/sun", [], 0, 15)
+        resultados = buscar_archivos("file", "/home/usuario", [], 0, 15)
         self.assertEqual(len(resultados), 20)
 
 
@@ -108,10 +108,10 @@ class TestBuscarContenido(TestCase):
     def test_busqueda_contenido_ok(self, mock_run):
         mock_run.return_value = MagicMock(
             returncode=0,
-            stdout="/home/sun/notas.txt:5:algo con python aquí\n",
+            stdout="/home/usuario/notas.txt:5:algo con python aquí\n",
             stderr="",
         )
-        resultados = buscar_contenido("python", "/home/sun", [".cache"], 10, 15)
+        resultados = buscar_contenido("python", "/home/usuario", [".cache"], 10, 15)
         self.assertEqual(len(resultados), 1)
         mock_run.assert_called_once()
         # Verificar que --glob !.cache está en los argumentos
@@ -122,7 +122,7 @@ class TestBuscarContenido(TestCase):
     @patch("explorador_archivos.explorador_archivos.subprocess.run")
     def test_busqueda_contenido_timeout(self, mock_run):
         mock_run.side_effect = subprocess.TimeoutExpired(cmd="rg", timeout=15)
-        resultados = buscar_contenido("test", "/home/sun", [], 10, 15)
+        resultados = buscar_contenido("test", "/home/usuario", [], 10, 15)
         self.assertEqual(resultados, [])
 
 
@@ -264,13 +264,13 @@ class TestBuscarContenidoExcluirRutas(TestCase):
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout=(
-                "/home/sun/proyecto/archivo.py:5:contenido\n"
-                "/home/sun/Escritorio/automatizaciones/logs/explorador_archivos.log:3:contenido\n"
+                "/home/usuario/proyecto/archivo.py:5:contenido\n"
+                "/home/usuario/Escritorio/automatizaciones/logs/explorador_archivos.log:3:contenido\n"
             ),
         )
-        excluir_rutas = ["/home/sun/Escritorio/automatizaciones/logs"]
+        excluir_rutas = ["/home/usuario/Escritorio/automatizaciones/logs"]
         resultados = buscar_contenido(
-            "contenido", "/home/sun", [], 0, 10, excluir_rutas=excluir_rutas
+            "contenido", "/home/usuario", [], 0, 10, excluir_rutas=excluir_rutas
         )
         self.assertEqual(len(resultados), 1)
         self.assertIn("archivo.py", resultados[0])

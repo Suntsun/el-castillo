@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /home/sun/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
+ExecStart=/usr/bin/python3 %h/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
 Restart=on-failure
 RestartSec=10
 Environment=DISPLAY=:0

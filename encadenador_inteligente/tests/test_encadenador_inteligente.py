@@ -518,7 +518,12 @@ class TestSmokeComandosCadenas(unittest.TestCase):
         comandos = self._extraer_ejecutables(toml_path)
         self.assertGreater(len(comandos), 0, f"Sin comandos en {toml_path.name}")
         for cmd in comandos:
-            partes = cmd.split()
+            # Los comandos reales corren con shell=True (expande $HOME/~);
+            # aqui se ejecutan sin shell, asi que expandimos manualmente.
+            import os
+            partes = [
+                os.path.expandvars(os.path.expanduser(p)) for p in cmd.split()
+            ]
             partes_help = partes + ["--help"]
             try:
                 resultado = sp.run(

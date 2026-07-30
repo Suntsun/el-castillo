@@ -149,7 +149,7 @@ def escanear_logs(
 
 def registrar_en_log_global(errores: list[dict], ruta_log_global: str | Path):
     """Añade los errores al log centralizado."""
-    ruta = Path(ruta_log_global)
+    ruta = Path(ruta_log_global).expanduser()
     ruta.parent.mkdir(parents=True, exist_ok=True)
 
     try:

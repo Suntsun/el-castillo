@@ -36,8 +36,8 @@ from arquitecto.registro import (  # noqa: E402
 )
 
 
-RUTA_PILOTO = Path("/home/sun/Escritorio/automatizaciones/cronista_errores/manifiesto.toml")
-RUTA_BASE = Path("/home/sun/Escritorio/automatizaciones")
+RUTA_PILOTO = Path.home() / "Escritorio/automatizaciones/cronista_errores/manifiesto.toml"
+RUTA_BASE = Path.home() / "Escritorio/automatizaciones"
 
 
 # -- comun.opencode ------------------------------------------------------------

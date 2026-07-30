@@ -170,7 +170,7 @@ def _verificar_dependencias(
     # legitima. exists() sigue al symlink, asi que un enlace roto cuenta como
     # ausente y se bloquea igual: la garantia de seguridad se mantiene.
     faltan_config = [
-        f for f in dep.ficheros_config if not Path(f).exists()
+        f for f in dep.ficheros_config if not Path(f).expanduser().exists()
     ]
     if faltan_config:
         return (

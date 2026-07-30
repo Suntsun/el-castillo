@@ -28,7 +28,7 @@ CONFIGURACIÓN (config.toml):
 - Lista de chips a monitorizar
 
 EJECUCIÓN MANUAL:
-  python3 /home/sun/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
+  python3 ~/Escritorio/automatizaciones/vigilante_temperatura/vigilante_temperatura.py
 
 ACTIVAR SERVICIO SYSTEMD:
   cp vigilante_temperatura.service ~/.config/systemd/user/

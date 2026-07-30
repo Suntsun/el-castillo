@@ -1,5 +1,5 @@
 # Manifiesto del Cronista de Errores
-# Esquema: ver /home/sun/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
+# Esquema: ver ~/Escritorio/automatizaciones/el_arquitecto_del_castillo/docs/esquema_manifiesto.md
 #
 # Operaciones expuestas: mostrar, seguir, limpiar.
 # Se OMITE intencionadamente la operación 'daemon' del subcomando real,
@@ -74,7 +74,7 @@ requiere_red = false
 requiere_sudo = false
 tiempo_max_segundos = 30
 paths_protegidos = [
-    "/home/sun/Escritorio/automatizaciones/logs/cronista_errores.log",
+    "~/Escritorio/automatizaciones/logs/cronista_errores.log",
 ]
 
 # No hay argumentos: todas las operaciones se distinguen por flags fijos.
@@ -86,7 +86,7 @@ paths_protegidos = [
 binarios = ["python3", "notify-send"]
 paquetes_python = []
 ficheros_config = [
-    "/home/sun/Escritorio/automatizaciones/cronista_errores/config.toml",
+    "~/Escritorio/automatizaciones/cronista_errores/config.toml",
 ]
 servicios_systemd = []
 
