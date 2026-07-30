@@ -2,7 +2,7 @@
 
 **Suite de 26 automatizaciones Linux gobernadas por un orquestador conversacional donde el LLM razona pero no ejecuta.**
 
-Python stdlib pura · cero dependencias externas · ~1.000 tests · systemd
+Python stdlib pura · cero dependencias externas · 1.179 tests · systemd
 
 ---
 
@@ -114,12 +114,12 @@ Cada módulo es autónomo: su propio `config.toml`, `manifiesto.toml`, unidad sy
 
 ## Testing
 
-**~1.000 funciones de test en 39 ficheros**, con `unittest` de la biblioteca estándar. Sin pytest, sin `requirements.txt`, sin una sola dependencia de terceros en todo el proyecto.
+**1.179 tests en 39 ficheros**, con `unittest` de la biblioteca estándar. Sin pytest, sin `requirements.txt`, sin una sola dependencia de terceros en todo el proyecto.
 
 ```
 $ python3 -m unittest tests.test_fase_pi2 -v
 ----------------------------------------------------------------------
-Ran 73 tests in 0.027s
+Ran 164 tests in 0.038s
 
 OK
 ```
@@ -130,7 +130,7 @@ Los tests cubren, entre otras cosas, que el REPL antiguo por keywords —conserv
 
 ## Stack
 
-`Python 3.8+` (stdlib exclusivamente) · `systemd` (9 servicios con timers de usuario) · `unittest` · herramientas de sistema invocadas por subprocess: `yt-dlp`, `ffmpeg`, `translate-shell`, `sensors` · motor de razonamiento: OpenCode, con agente restringido sin acceso a bash, edición ni red.
+`Python 3.11+` (stdlib exclusivamente; usa `match` y `tomllib`) · `systemd` (9 servicios con timers de usuario) · `unittest` · herramientas de sistema invocadas por subprocess: `yt-dlp`, `ffmpeg`, `translate-shell`, `sensors` · motor de razonamiento: OpenCode, con agente restringido sin acceso a bash, edición ni red.
 
 Entorno objetivo: Linux Arch con Hyprland.
 

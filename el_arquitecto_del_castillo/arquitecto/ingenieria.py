@@ -20,9 +20,15 @@ ALCANCE PI-0/PI-1: dos perfiles activos.
 El perfil 'comandos' (PI-2, bash) NO existe todavia: mientras no este en
 PERFIL_AGENTE, el validador lo rechaza (fallo seguro).
 
-Este modulo NO ejecuta nada y NO sigue symlinks: resuelve y valida rutas de
-forma LEXICA (absolutas, normalizando '..' sin tocar el FS) para no depender
-de que existan en tiempo de evaluacion, igual que `seguridad._ruta_dentro_de`.
+Este modulo NO ejecuta nada. La normalizacion de '..' sigue siendo LEXICA
+(sin tocar el FS), igual que `seguridad._ruta_dentro_de`. Pero la resolucion
+final SI sigue symlinks (realpath, no estricto) y RECONFINA el resultado
+contra las raices autorizadas: normalizar solo '..' no basta, porque un
+enlace simbolico creado DENTRO de una raiz autorizada puede apuntar a
+cualquier destino FUERA de ella sin que ningun '..' aparezca en la ruta. La
+resolucion es tolerante con rutas que aun no existen (no falla si el destino
+final no esta creado todavia), para no depender de que existan en tiempo de
+evaluacion.
 """
 
 from __future__ import annotations
@@ -134,6 +140,28 @@ def _normalizar(ruta: Path) -> Path:
     return Path(os.path.normpath(str(ruta)))
 
 
+def _resolver_real(ruta: Path) -> Path:
+    """Resuelve symlinks (realpath) de forma NO estricta.
+
+    Sigue todo enlace simbolico que exista a lo largo de la ruta, pero no
+    falla si la ruta (o su tramo final) no existe todavia: eso permite
+    seguir soportando el caso legitimo de una ruta que se va a crear.
+
+    Sin esto, `_normalizar` (puramente lexica) no detecta que un enlace
+    simbolico DENTRO de una raiz autorizada apunta a un destino FUERA de
+    ella: normaliza '..' pero nunca sigue el enlace. Tolerante: si la
+    resolucion falla (p. ej. un bucle de symlinks o un error de permisos),
+    se devuelve la normalizacion lexica; el resultado sigue pasando por la
+    comprobacion de raices igualmente (fallo seguro: en el peor caso se
+    trata como si no hubiera symlink que seguir, igual que antes de este
+    endurecimiento).
+    """
+    try:
+        return ruta.resolve(strict=False)
+    except (OSError, RuntimeError):
+        return _normalizar(ruta)
+
+
 def ruta_es_sensible(ruta: Path) -> bool:
     """True si `ruta` cae en una carpeta sensible o su nombre delata un
     secreto (`.env`, `.key`, `.pem`, claves privadas)."""
@@ -174,13 +202,20 @@ def resolver_directorio_autorizado(
     """Resuelve el directorio objetivo de una delegacion de ingenieria.
 
     Si `directorio` es None se usa `cwd`. La ruta (expandida, '..' colapsado
-    de forma lexica, sin seguir symlinks) debe:
+    de forma lexica) debe:
       - ser absoluta;
-      - NO ser una ruta sensible;
-      - caer dentro de alguna RAIZ autorizada.
+      - NO ser una ruta sensible (tanto la forma lexica como, tras seguir
+        symlinks, su destino real);
+      - caer dentro de alguna RAIZ autorizada, TANTO en su forma lexica
+        COMO tras resolver symlinks (realpath no estricto). Un enlace
+        simbolico creado dentro de una raiz autorizada que apunte fuera de
+        ella se bloquea aqui: normalizar '..' no lo detecta porque el
+        enlace no necesita ningun '..' en su ruta.
 
     Returns:
         (dir_resuelto, None) si es valido; (None, motivo) si se bloquea.
+        `dir_resuelto` es la forma lexica (no la resuelta), para que el
+        resultado sea legible y estable de cara al usuario/trazas.
     """
     if directorio is not None:
         base = Path(directorio).expanduser()
@@ -198,11 +233,57 @@ def resolver_directorio_autorizado(
     if ruta_es_sensible(candidata):
         return None, f"directorio sensible, acceso denegado: {candidata}"
 
+    real = _resolver_real(candidata)
+    if ruta_es_sensible(real):
+        return None, (
+            f"directorio sensible tras resolver symlinks: {real} "
+            f"(enlace en {candidata})"
+        )
+
     for raiz in raices_autorizadas():
-        if _es_subruta(candidata, _normalizar(raiz)):
+        raiz_norm = _normalizar(raiz)
+        if _es_subruta(candidata, raiz_norm) and _es_subruta(real, raiz_norm):
             return candidata, None
 
+    if any(_es_subruta(candidata, _normalizar(r)) for r in raices_autorizadas()):
+        # Cae dentro de una raiz de forma lexica, pero su destino REAL (tras
+        # symlinks) escapa de todas las raices: escape por enlace simbolico.
+        return None, (
+            f"directorio '{candidata}' escapa de las raices autorizadas via "
+            f"symlink (destino real: {real})"
+        )
+
     return None, f"directorio fuera de las raices autorizadas: {candidata}"
+
+
+def ruta_relativa_escapa_por_symlink(token: str, cwd: Path) -> str | None:
+    """Para un token RELATIVO (ya sin '..', y que NO es una ruta explicita
+    '/'/'~'), comprueba que no sea (ni cuelgue de) un enlace simbolico que
+    escape de las raices autorizadas al resolverlo bajo `cwd`.
+
+    A proposito NO aplica `ruta_es_sensible` (la heuristica de nombres:
+    `.env`, `id_rsa`, etc.) a este token: esa heuristica esta pensada para
+    rutas explicitas, y aplicarla aqui rechazaria por error argumentos que
+    simplemente se LLAMEN como un fichero sensible sin serlo (p. ej. un
+    patron de busqueda `grep id_rsa .`). Solo se rechaza si de verdad hay un
+    symlink cuyo destino real escapa de todas las raices.
+
+    Returns:
+        motivo (str) si escapa; None si es seguro. Un token que no exista en
+        el filesystem no tiene symlink que seguir y por tanto se considera
+        seguro (se comporta igual que antes de este endurecimiento).
+    """
+    candidata = _normalizar(cwd / token)
+    real = _resolver_real(candidata)
+    if real == candidata:
+        return None
+    for raiz in raices_autorizadas():
+        if _es_subruta(real, _normalizar(raiz)):
+            return None
+    return (
+        f"argumento '{token}': es (o cuelga de) un enlace simbolico que "
+        f"escapa de las raices autorizadas (destino real: {real})"
+    )
 
 
 def resolver_ejecucion_ingenieria(

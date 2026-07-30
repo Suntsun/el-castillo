@@ -571,8 +571,17 @@ def evaluar_comandos(
     Segunda barrera (defensa en profundidad sobre el validador): vuelve a
     preparar TODO el lote con `comandos.preparar_lote`, que revalida la forma
     contra la allowlist, resuelve el directorio de cada comando contra las
-    RAICES_AUTORIZADAS y confina las rutas explicitas de los argumentos. Si
-    CUALQUIER comando no pasa, se BLOQUEA el lote entero (no se ejecuta nada).
+    RAICES_AUTORIZADAS (siguiendo symlinks) y confina las rutas de los
+    argumentos. Si CUALQUIER comando no pasa, se BLOQUEA el lote entero (no
+    se ejecuta nada).
+
+    El texto de confirmacion describe el argv REAL de cada comando y
+    comprueba de forma independiente (`comandos.comando_puede_escribir`) si
+    alguno puede escribir: solo afirma "de solo lectura" cuando esa
+    comprobacion lo confirma para TODO el lote. Si algun comando esta
+    marcado como posible escritura, el texto lo señala explicitamente en vez
+    de mentir (el usuario es la ultima barrera del diseño; no debe aprobar
+    una escritura creyendo que es una lectura).
 
     SIEMPRE requiere confirmacion humana (una sola, para todo el lote). En v1
     ningun binario requiere red. Nunca lanza: los problemas van en el Veredicto.
@@ -585,24 +594,44 @@ def evaluar_comandos(
 
     requiere_red = False
     lineas: list[str] = []
+    alguna_escritura = False
     for argv, directorio, cmd in preparados:
         politica = comandos.binario_permitido(cmd.get("binario"))
         if politica is not None and politica.requiere_red:
             requiere_red = True
         razon_cmd = cmd.get("razon")
         sufijo = f"  ({razon_cmd})" if razon_cmd else ""
-        lineas.append(f"  $ {' '.join(argv)}\n      [dir: {directorio}]{sufijo}")
+        if comandos.comando_puede_escribir(argv):
+            alguna_escritura = True
+            marca = "  [POSIBLE ESCRITURA]"
+        else:
+            marca = ""
+        lineas.append(
+            f"  $ {' '.join(argv)}{marca}\n      [dir: {directorio}]{sufijo}"
+        )
 
     cuerpo = "\n".join(lineas)
-    texto = (
-        f"[{AVISO_COMANDOS}]\n"
-        f"Ejecutar {len(preparados)} comando(s) de solo lectura:\n{cuerpo}"
-    )
+    if alguna_escritura:
+        encabezado = (
+            f"ATENCION: el lote de {len(preparados)} comando(s) incluye al "
+            f"menos uno marcado como POSIBLE ESCRITURA (revisa las lineas "
+            f"señaladas antes de confirmar):"
+        )
+        avisos = (
+            AVISO_COMANDOS,
+            "ATENCION: este lote NO es de solo lectura; incluye comando(s) "
+            "marcados como posible escritura.",
+        )
+    else:
+        encabezado = f"Ejecutar {len(preparados)} comando(s) de solo lectura:"
+        avisos = (AVISO_COMANDOS,)
+
+    texto = f"[{AVISO_COMANDOS}]\n{encabezado}\n{cuerpo}"
     return Veredicto(
         permitido=True,
         requiere_confirmacion=True,
         requiere_red=requiere_red,
         motivo_bloqueo=None,
-        avisos=(AVISO_COMANDOS,),
+        avisos=avisos,
         texto_confirmacion=texto,
     )
